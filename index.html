@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An offline AP World History study atlas built from your classroom slides. Explore places, practice TEA responses, and revise with source-linked questions.">
+  <title>World History Atlas · APWH Study Map</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="land.js" defer></script>
+  <script src="sources.js" defer></script>
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to study content</a>
+  <header class="site-header">
+    <a href="#explore" class="brand" aria-label="World History Atlas home"><span class="brand-symbol" aria-hidden="true">✳</span><span>World History <em>Atlas</em><small>YOUR CLASSROOM, MAPPED</small></span></a>
+    <nav aria-label="Main navigation">
+      <button class="nav-button active" data-view="explore" aria-current="page">Explore map</button>
+      <button class="nav-button" data-view="practice">Practice <span class="nav-dot" aria-hidden="true"></span></button>
+      <button class="nav-button" data-view="library">Slide library</button>
+    </nav>
+    <button class="about-button" id="about-button" aria-label="About sources and map">About this atlas <span aria-hidden="true">↗</span></button>
+  </header>
+  <main id="main" tabindex="-1">
+    <section id="view-explore" class="view explore-view" aria-label="Explore the study map">
+      <aside class="sidebar" aria-label="Search and filter locations">
+        <div class="sidebar-intro"><span class="eyebrow">THE COLLECTION</span><h2>Places & connections</h2><p><span id="entry-count">0</span> places from your class slides</p></div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search Aztecs, trade…" aria-label="Search places and study notes"><kbd>/</kbd></label>
+        <div class="filter-section"><label for="period">TIME PERIOD</label><select id="period"><option value="all">All periods</option><option value="core">1200–1450 · main</option><option value="before">Before 1200 · context</option><option value="after">After 1450 · later</option></select></div>
+        <div class="filter-section"><label for="region">REGION</label><select id="region"><option value="all">All regions</option></select></div>
+        <div class="revision-line"><label><input type="checkbox" id="revision-only"> Needs review only</label><button id="clear-filters" class="text-button">Reset</button></div>
+        <div class="list-heading"><span id="result-count" role="status" aria-live="polite"></span><span>SELECT A PLACE</span></div>
+        <div id="location-list" class="location-list" aria-label="Filtered study locations"></div>
+        <div class="sidebar-bottom"><span class="progress-track"><span id="progress-bar"></span></span><p id="progress-label"></p><small>Progress and drafts stay in this browser.</small></div>
+      </aside>
+      <section class="atlas-stage" aria-label="World map">
+        <div class="atlas-heading"><div class="eyebrow"><span class="live-dot"></span> AP WORLD HISTORY · UNITS 1 & 2</div><h1>A world of<br><em>connections.</em></h1><p>Explore a place. Find the evidence.<br>Build an answer that explains why.</p><div class="scope-note">Focus: c. 1200–1450 <span>Earlier context & later extensions included</span></div></div>
+        <div id="map-wrap" class="map-wrap">
+          <svg id="world-map" viewBox="0 0 1100 610" role="group" aria-label="Interactive world study map. Select a marker, or use the location list. Drag to pan; use the zoom buttons to zoom.">
+            <defs><pattern id="ocean-dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.65" fill="#bfcbc6" opacity=".42"/></pattern></defs>
+            <rect width="1100" height="610" fill="url(#ocean-dots)"/>
+            <g id="map-world"><g id="graticule" aria-hidden="true"></g><g id="land" aria-hidden="true"></g><g id="map-labels" aria-hidden="true"></g><g id="markers"></g></g>
+          </svg>
+          <div class="map-controls" aria-label="Map controls"><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-reset" aria-label="Reset map view">⌖</button></div>
+          <div class="map-north" aria-hidden="true">N<span>↑</span></div>
+          <div class="map-tooltip" id="map-tooltip" role="status"></div>
+          <p class="map-help">SELECT A MARKER TO EXPLORE <span>Drag to pan · + / − to zoom</span></p>
+        </div>
+        <div class="map-legend"><span><i class="legend-dot"></i> Study location</span><span><i class="legend-dot selected"></i> Selected</span><span><i class="legend-dot known"></i> Reviewed</span></div>
+        <div class="connection-note"><span class="note-icon" aria-hidden="true">↔</span><div><span class="eyebrow">THINK ACROSS REGIONS</span><p id="connection-text">Compare how states organized power, adapted to their environments, and connected through exchange.</p></div><button class="text-button" id="connection-next" aria-label="Next comparison idea">Next ↗</button></div>
+        <footer class="map-footer"><span>Approximate location pins, not empire borders.</span><a href="https://www.naturalearthdata.com/downloads/110m-physical-vectors/" target="_blank" rel="noreferrer">Base map: Natural Earth ↗</a></footer>
+      </section>
+      <aside id="detail-panel" class="detail-panel" aria-label="Selected location study panel" tabindex="-1"></aside>
+    </section>
+
+    <section id="view-practice" class="view practice-view" hidden aria-label="Practice and revision">
+      <div class="page-intro"><span class="eyebrow">RECALL, EXPLAIN, CONNECT</span><h1>Make it <em>stick.</em></h1><p>Questions drawn from your classroom slides. Use the map’s filters to focus a session.</p></div>
+      <div class="practice-layout"><aside class="practice-settings"><h2>Your revision session</h2><p id="practice-scope"></p><label for="question-count">Questions</label><select id="question-count"><option value="10">Up to 10 questions</option><option value="20">Up to 20 questions</option><option value="all">All matching questions</option></select><label class="check-label"><input id="quiz-review-only" type="checkbox"> Only places marked for review</label><button id="start-quiz" class="primary-button">Start a session <span>→</span></button><button id="resume-missed" class="secondary-button" hidden>Retry missed questions</button><div class="practice-tip"><span class="eyebrow">A SMALL STUDY HABIT</span><p>Choose an answer before checking. Read the explanation, then open the source when you need the evidence.</p></div><p class="muted small">These are original practice questions derived from the slides, not official College Board questions.</p></aside><div id="quiz-area" class="quiz-area" aria-live="polite"></div></div>
+    </section>
+
+    <section id="view-library" class="view library-view" hidden aria-label="Classroom slide library">
+      <div class="page-intro"><span class="eyebrow">GO BACK TO THE EVIDENCE</span><h1>Your classroom <em>library.</em></h1><p>All seven decks, all 75 slides. Original text, speaker notes where present, and embedded images.</p></div>
+      <div class="library-controls"><label class="search-box"><span aria-hidden="true">⌕</span><input id="library-search" type="search" placeholder="Search original slide text…" aria-label="Search slide library"></label><label class="sr-only" for="deck-filter">Filter by deck</label><select id="deck-filter"><option value="all">All seven decks</option></select><button id="review-issues" class="secondary-button">5 source notes to check</button></div>
+      <div id="library-count" class="muted" role="status"></div><div id="slide-grid" class="slide-grid"></div><div id="library-pagination" class="pagination"></div>
+    </section>
+  </main>
+  <dialog id="source-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">CLASSROOM SOURCE</span><button id="dialog-close" class="icon-button" aria-label="Close dialog">×</button></div><div id="dialog-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript>This atlas needs JavaScript. Enable it in your browser and reopen this page.</noscript>
+</body>
+</html>
