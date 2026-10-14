@@ -21,6 +21,13 @@
       <button class="nav-button" data-view="practice">Practice <span class="nav-dot" aria-hidden="true"></span></button>
       <button class="nav-button" data-view="library">Slide library</button>
     </nav>
+    <div class="teacher-links" role="group" aria-label="Teacher resources">
+      <span class="teacher-links-label">TEACHER RESOURCES</span>
+      <div class="teacher-links-items">
+        <a href="https://quizlet.com/class/31576935/materials" target="_blank" rel="noopener noreferrer" aria-label="Open your teacher’s Quizlet class in a new tab">Quizlet ↗</a>
+        <a href="https://ap-history-skills-lab.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Open your teacher’s AP History Skills Lab in a new tab">Skills Lab ↗</a>
+      </div>
+    </div>
     <button class="about-button" id="about-button" aria-label="About sources and map">About this atlas <span aria-hidden="true">↗</span></button>
   </header>
   <main id="main" tabindex="-1">
@@ -57,7 +64,23 @@
 
     <section id="view-practice" class="view practice-view" hidden aria-label="Practice and revision">
       <div class="page-intro"><span class="eyebrow">RECALL, EXPLAIN, CONNECT</span><h1>Make it <em>stick.</em></h1><p>Questions drawn from your classroom slides. Use the map’s filters to focus a session.</p></div>
-      <div class="practice-layout"><aside class="practice-settings"><h2>Your revision session</h2><p id="practice-scope"></p><label for="question-count">Questions</label><select id="question-count"><option value="10">Up to 10 questions</option><option value="20">Up to 20 questions</option><option value="all">All matching questions</option></select><label class="check-label"><input id="quiz-review-only" type="checkbox"> Only places marked for review</label><button id="start-quiz" class="primary-button">Start a session <span>→</span></button><button id="resume-missed" class="secondary-button" hidden>Retry missed questions</button><div class="practice-tip"><span class="eyebrow">A SMALL STUDY HABIT</span><p>Choose an answer before checking. Read the explanation, then open the source when you need the evidence.</p></div><p class="muted small">These are original practice questions derived from the slides, not official College Board questions.</p></aside><div id="quiz-area" class="quiz-area" aria-live="polite"></div></div>
+      <div class="practice-layout">
+        <aside class="practice-settings">
+          <h2>Your revision session</h2><p id="practice-scope"></p>
+          <label for="question-count">Questions</label><select id="question-count"><option value="10">Up to 10 questions</option><option value="20">Up to 20 questions</option><option value="all">All matching questions</option></select>
+          <label class="check-label"><input id="quiz-review-only" type="checkbox"> Only places marked for review</label>
+          <button id="start-quiz" class="primary-button">Start a session <span>→</span></button>
+          <button id="resume-missed" class="secondary-button" hidden>Retry missed questions</button>
+          <div class="practice-resources">
+            <span class="eyebrow">PRACTICE WITH YOUR TEACHER</span>
+            <a href="https://quizlet.com/class/31576935/materials" target="_blank" rel="noopener noreferrer">Quizlet class <span aria-hidden="true">↗</span><small>Open the class materials and question sets.</small></a>
+            <a href="https://ap-history-skills-lab.netlify.app/" target="_blank" rel="noopener noreferrer">AP History Skills Lab <span aria-hidden="true">↗</span><small>SAQ prompts, teacher examples, and self-checks.</small></a>
+          </div>
+          <div class="practice-tip"><span class="eyebrow">A SMALL STUDY HABIT</span><p>Choose an answer before checking. Read the explanation, then open the source when you need the evidence.</p></div>
+          <p class="muted small">These are original practice questions derived from the slides, not official College Board questions.</p>
+        </aside>
+        <div id="quiz-area" class="quiz-area" aria-live="polite"></div>
+      </div>
     </section>
 
     <section id="view-library" class="view library-view" hidden aria-label="Classroom slide library">

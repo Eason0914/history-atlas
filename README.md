@@ -19,12 +19,13 @@ This opens `http://127.0.0.1:8765`. Keep that window running while you study. Pr
 - Click a world-map marker or a place in the list to read notes and view a slide image.
 - Search names and study content. “Aztecs” finds the Aztec entry. Use `/` to focus search.
 - Filter by region, pre-1200 context, the main 1200–1450 lesson, or post-1450 extensions. Some entries appear in multiple periods because their slides discuss more than one period.
-- Use **SAQ · TEA** for Topic, Explain, Analyze models and your own draft. Drafts save automatically in this browser.
+- Use **SAQ · TEA** for Topic, Evidence, Analysis models and your own draft. Drafts save automatically in this browser, including drafts saved before the label update.
 - Use **MCQ traps** for distinctions, then try a question.
 - Mark places as **I know this** or **Review again**. The needs-review filter shows your revision list.
 - Start a shuffled quiz in **Practice**. Wrong answers add places to your review list; retry them after the session. A correct quiz answer does not automatically mark an entire place as reviewed.
 - Open **Slide library** to search all original slide text, speaker notes where present, and images. Eight image-only map slides have separate descriptions from visual inspection.
 - Open source chips for the exact deck and slide. `sources.json` contains the complete extraction and source-file SHA-256 hashes.
+- The header and Practice page link directly to your teacher’s [Quizlet class](https://quizlet.com/class/31576935/materials) and [AP History Skills Lab](https://ap-history-skills-lab.netlify.app/). SAQ and MCQ panels also link to the matching teacher resource. Links open in a new tab so your map and drafts stay open. Those external resources require internet access and may require a separate login; no Quizlet question bank is copied into this project.
 
 Progress and drafts stay in local browser storage. They are not sent anywhere. Browser storage may differ between direct-file and local-server mode, and between browsers or port numbers. Use a consistent address. If storage is unavailable, the site tells you; keep a separate copy of important drafts.
 
