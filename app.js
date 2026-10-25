@@ -9,11 +9,14 @@
   const deckById = new Map(decks.map(d => [d.id, d]));
   const slideById = new Map(decks.flatMap(d => d.slides.map(s => [s.id, {...s, deck:d}])));
   const STORAGE_KEY = 'classroom-history-atlas-v1';
+  const initialParams=new URLSearchParams(location.search);
+  const requestedUnit=initialParams.get('unit');
+  const initialUnit=['all','units12','unit3'].includes(requestedUnit)?requestedUnit:'unit3';
   let canSave = true;
   let stored = {};
   try { const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) stored = parsed; } catch (_) { canSave = false; }
   const objectOrEmpty = x => x && typeof x === 'object' && !Array.isArray(x) ? x : {};
-  const state = {selected:'aztec', tab:'notes', view:'explore', query:'', region:'all', period:'all', revisionOnly:false,
+  const state = {selected:'ottoman', tab:'notes', view:'explore', unit:initialUnit, query:'', region:'all', period:'all', revisionOnly:false,
     progress:objectOrEmpty(stored.progress), drafts:objectOrEmpty(stored.drafts), libraryPage:0, quiz:null, missed:[], model:false};
   let filtered = entries.slice();
   let toastTimer;
@@ -32,7 +35,7 @@
     const tokens=normalized(q).trim().split(/\s+/).filter(Boolean);
     return tokens.every(t=> searchable.get(e.id).includes(t) || (t.length>4 && t.endsWith('s') && searchable.get(e.id).includes(t.slice(0,-1))));
   };
-  const matches = e => (state.period==='all'||e.periods.includes(state.period)) && (state.region==='all'||e.region===state.region) && (!state.revisionOnly||state.progress[e.id]==='review') && searchMatch(e,state.query);
+  const matches = e => (state.unit==='all'||e.units.includes(state.unit)) && (state.period==='all'||e.periods.includes(state.period)) && (state.region==='all'||e.region===state.region) && (!state.revisionOnly||state.progress[e.id]==='review') && searchMatch(e,state.query);
   const progressCount = () => entries.filter(e=>state.progress[e.id]==='known').length;
   const updateProgress = () => { const n=progressCount(); $('progress-bar').style.width=`${n/entries.length*100}%`; $('progress-label').textContent=`${n} of ${entries.length} places reviewed`; };
 
@@ -56,7 +59,9 @@
   });
   // Small offsets separate neighboring study topics; lines retain their geographic anchors.
   const offsets={song:[20,23],ming:[-17,38],yuan:[-15,-13],korea:[23,-2],japan:[30,11],vietnam:[22,18],mongols:[0,-21],delhi:[0,-14],vijayanagara:[-15,4],calicut:[-29,14],khmer:[27,-5],malacca:[-4,18],majapahit:[28,14],baghdad:[-29,-7],seljuk:[18,12],ilkhanate:[19,-12],'gunpowder-preview':[24,31],ghana:[-19,-8],mali:[17,4],ethiopia:[17,-7],aztec:[-24,-3],olmec:[8,18],maya:[25,-5],chavin:[-16,-14],inca:[12,15],'western-europe':[9,17],england:[-14,-12],byzantium:[0,16],alandalus:[-20,3],'golden-horde':[-13,-15],chagatai:[15,4]};
+  Object.assign(offsets,{ottoman:[-15,-10],safavid:[25,-12],mughal:[21,10],qing:[13,-32],songhai:[12,-18],tokugawa:[26,-10],'louis-france':[-15,20],'ming-silver':[-27,8],protestant:[-3,-23],'catholic-reform':[18,5],sikhism:[-24,-8]});
   const featured=new Set(['aztec','inca','maya','cahokia','song','japan','mongols','baghdad','delhi','malacca','mali','swahili','zimbabwe','western-europe','calicut']);
+  ['ottoman','safavid','mughal','qing','songhai','tokugawa'].forEach(id=>featured.add(id));
   const markerEls=new Map();
   entries.forEach(e=>{
     const [x,y]=project(e.lon,e.lat);const [ox,oy]=offsets[e.id]||[0,0];
@@ -99,8 +104,15 @@
   }
   function filterAll() {
     filtered=entries.filter(matches);
+    if(state.unit==='unit3')filtered.sort((a,b)=>a.units.length-b.units.length);
     if(!filtered.some(e=>e.id===state.selected)){state.selected=filtered[0]?.id||null;state.tab='notes';state.model=false;renderDetail();}
     updateList();updateMarkers();$('map-tooltip').classList.remove('visible');
+    const scopes={all:['1200–1750','Units 1–3 · earlier context and later illustrations labeled'],units12:['1200–1450','Units 1–2 · context and extensions included'],unit3:['1450–1750','Unit 3 · expansion, administration, and belief systems']};
+    $('scope-note').innerHTML=`${esc(scopes[state.unit][0])} <span>${esc(scopes[state.unit][1])}</span>`;
+    if(location.protocol!=='file:'){
+      const url=new URL(location.href);url.searchParams.set('unit',state.unit);history.replaceState(null,'',url);
+    }
+    window.ATLAS_THEME?.syncControls();
   }
   function selectEntry(id,scroll=false) {
     if(!entries.some(e=>e.id===id))return;
@@ -114,8 +126,9 @@
     if(!e){$('detail-panel').innerHTML='<div class="panel-empty"><span class="eyebrow">ROOM TO EXPLORE</span><h2>No matching places</h2><p class="muted">Clear a filter or try a different keyword.</p><button class="secondary-button" data-action="clear">Reset filters</button></div>';return;}
     const src=imageSource(e);
     $('detail-panel').innerHTML=`<div class="detail-topline"><span>${esc(e.region)}</span><button class="save-button ${state.progress[e.id]==='review'?'saved':''}" data-action="review">${state.progress[e.id]==='review'?'⚑ Needs review':'+ Add to review'}</button></div>
-      <h2>${esc(e.name)}</h2><p class="date-line">${esc(e.dates)}</p>
+      <p class="entry-unit">${e.units.map(u=>u==='unit3'?'UNIT 3':'UNITS 1–2').join(' + ')}</p><h2>${esc(e.name)}</h2><p class="date-line">${esc(e.dates)}</p>
       <figure class="detail-figure"><button data-source="${src}" aria-label="View classroom image and its source slide"><img src="${esc(e.displayImage)}" alt="Classroom illustration for ${esc(e.name)}" decoding="async"></button><figcaption>Image from your slides · <button data-source="${src}">${esc(sourceName(src))} ↗</button></figcaption></figure>
+      ${e.imageNote?`<p class="image-period-note">${esc(e.imageNote)}</p>`:''}
       <p class="detail-summary">${esc(e.summary)}</p>
       <div class="detail-tabs" role="tablist" aria-label="Study content">${[['notes','Notes'],['tea','SAQ · TEA'],['mcq','MCQ traps'],['sources','Sources']].map(([id,label])=>`<button role="tab" id="tab-${id}" aria-selected="${state.tab===id}" aria-controls="study-content" tabindex="${state.tab===id?'0':'-1'}" class="${state.tab===id?'active':''}" data-tab="${id}">${label}</button>`).join('')}</div>
       <div id="study-content" role="tabpanel" aria-labelledby="tab-${state.tab}"></div>
@@ -124,7 +137,7 @@
   }
   function renderStudyContent() {
     const e=current();if(!e)return;const area=$('study-content');
-    if(state.tab==='notes')area.innerHTML=`<h3 class="detail-subhead">WHAT TO REMEMBER</h3><ul class="fact-list">${e.facts.map(f=>`<li>${esc(f)}</li>`).join('')}</ul><h3 class="detail-subhead">SLIDE EVIDENCE</h3>${citations(e.refs)}`;
+    if(state.tab==='notes')area.innerHTML=`<h3 class="detail-subhead">WHAT TO REMEMBER</h3><ul class="fact-list">${e.facts.map((f,i)=>`<li>${esc(f)}${e.factRefs?.[i]?`<span class="fact-evidence">${e.factRefs[i].map(ref=>`<button class="source-chip" data-source="${esc(ref)}">${esc(sourceName(ref))} ↗</button>`).join('')}</span>`:''}</li>`).join('')}</ul><h3 class="detail-subhead">SLIDE EVIDENCE</h3>${citations(e.refs)}`;
     if(state.tab==='tea'){
       // Keep the existing draft/data keys so older saved responses still load.
       const draft=objectOrEmpty(state.drafts[e.id]);
@@ -134,7 +147,7 @@
       <h3 class="detail-subhead">TRY IT IN YOUR OWN WORDS</h3>${[['topic','T · Topic: answer the prompt','topic'],['explain','E · Evidence: give a specific historical example','evidence'],['analyze','A · Analysis: explain how or why it supports your claim','analysis']].map(([key,label,part])=>`<label class="draft-field">${label}<textarea data-draft="${key}" spellcheck="true" placeholder="Write your ${part} here…">${esc(draft[key]||'')}</textarea></label>`).join('')}<p class="draft-status" id="draft-status">${canSave?'Your draft saves automatically in this browser.':'Browser storage unavailable. Keep a copy before closing.'}</p>`;
     }
     if(state.tab==='mcq')area.innerHTML=`<p class="derived-label">Distinctions to check before choosing an answer. These are study aids, not predictions of exam questions.</p><a class="teacher-context-link" href="https://quizlet.com/class/31576935/materials" target="_blank" rel="noopener noreferrer">Open your teacher’s Quizlet class ↗</a>${e.traps.map((t,i)=>`<div class="trap"><span>${String(i+1).padStart(2,'0')}</span><p>${esc(t)}</p></div>`).join('')}${citations(e.refs)}<button class="primary-button wide" data-action="single-quiz">Try a question about this place →</button>`;
-    if(state.tab==='sources')area.innerHTML=`<p class="derived-label">Every historical note in this entry is based on these classroom slides. TEA analysis and quiz wording are derived study aids. Open a slide to check its original wording and images.</p>${citations(e.refs)}${data.issues.filter(i=>i.refs.some(ref=>e.refs.includes(ref))).map(i=>`<div class="source-warning"><strong>${esc(i.title)}</strong><p>${esc(i.text)}</p></div>`).join('')}<button class="secondary-button wide" data-action="library">Browse all 75 slides ↗</button>`;
+    if(state.tab==='sources')area.innerHTML=`<p class="derived-label">Every historical note in this entry is based on these classroom slides. TEA analysis and quiz wording are derived study aids. Open a slide to check its original wording and images.</p>${citations(e.refs)}${data.issues.filter(i=>i.refs.some(ref=>e.refs.includes(ref))).map(i=>`<div class="source-warning"><strong>${esc(i.title)}</strong><p>${esc(i.text)}</p></div>`).join('')}<button class="secondary-button wide" data-action="library">Browse all ${data.meta.slides} slides ↗</button>`;
   }
   $('detail-panel').addEventListener('click',event=>{
     const tab=event.target.closest('[data-tab]');
@@ -162,13 +175,17 @@
   });
   $('location-list').addEventListener('click',event=>{const id=event.target.closest('[data-select]')?.dataset.select;if(id)selectEntry(id);});
   $('search').addEventListener('input',event=>{state.query=event.target.value;filterAll();});
+  $('unit').addEventListener('change',event=>{state.unit=event.target.value;state.period='all';$('period').value='all';filterAll();});
   $('period').addEventListener('change',event=>{state.period=event.target.value;filterAll();});
   $('region').addEventListener('change',event=>{state.region=event.target.value;filterAll();});
   $('revision-only').addEventListener('change',event=>{state.revisionOnly=event.target.checked;filterAll();});
-  function clearFilters(){state.query='';state.period='all';state.region='all';state.revisionOnly=false;$('search').value='';$('period').value='all';$('region').value='all';$('revision-only').checked=false;filterAll();}
+  function clearFilters(){state.unit='all';state.query='';state.period='all';state.region='all';state.revisionOnly=false;$('unit').value='all';$('search').value='';$('period').value='all';$('region').value='all';$('revision-only').checked=false;filterAll();}
   $('clear-filters').addEventListener('click',clearFilters);
   [...new Set(entries.map(e=>e.region))].forEach(region=>{const option=document.createElement('option');option.value=region;option.textContent=region;$('region').append(option);});
   $('entry-count').textContent=entries.length;
+  $('unit').value=state.unit;
+  $('library-description').textContent=`All ${data.meta.decks} decks and ${data.meta.slides} slides, including ${data.meta.unit3Slides} new Unit 3 slides. Original text, speaker notes where present, and embedded images.`;
+  $('review-issues').textContent=`${data.issues.length} source notes to check`;
 
   // Source library and exact slide provenance.
   function openDialog(html) {$('dialog-content').innerHTML=html;if(!$('source-dialog').open)$('source-dialog').showModal();$('source-dialog').scrollTop=0;}
@@ -188,17 +205,18 @@
   $('source-dialog').addEventListener('click',event=>{if(event.target===$('source-dialog')){const r=event.target.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)event.target.close();}});
   function showIssues(){openDialog(`<h2 id="dialog-title">Source notes to check</h2><p class="muted">Original wording remains available in the library. Study aids avoid relying on these questionable or overbroad claims.</p>${data.issues.map(i=>`<article class="issue-item"><h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${citations(i.refs)}</article>`).join('')}`);}
   $('review-issues').addEventListener('click',showIssues);
-  function showAbout(){openDialog(`<h2 id="dialog-title">Built from your classroom.</h2><div class="about-copy"><p>${esc(data.meta.scope)}</p><div class="about-stats"><div><strong>${data.meta.decks}</strong><span>PowerPoint decks</span></div><div><strong>${data.meta.slides}</strong><span>Source slides</span></div><div><strong>${entries.length}</strong><span>Study locations</span></div><div><strong>${data.meta.images}</strong><span>Embedded images</span></div></div><p>${esc(data.meta.method)}</p><p><strong>Period filters:</strong> An entry may appear in more than one filter when its slides discuss background or later developments. Entries without precise dates use the lesson window; this is not evidence that a state existed for the entire window.</p><p><strong>Images:</strong> All historical illustrations come from the supplied presentations. Their original credits, where embedded, remain in the images. Images are not automatically contemporary or primary sources.</p><p><strong>Your work:</strong> Review status and TEA drafts save in this browser’s local storage. There are no accounts or uploads. Moving the folder, clearing browser data, or using a different browser may reset access to those drafts.</p><p><strong>Geography:</strong> Coastlines use the public-domain <a href="https://www.naturalearthdata.com/downloads/110m-physical-vectors/" target="_blank" rel="noreferrer">Natural Earth land dataset</a>. Marker locations and offsets are navigation aids, not historical claims about borders.</p><p><strong>Source cautions:</strong> Five notes flag questionable claims or inconsistencies in the decks. Check these with your teacher before using them in assessed work.</p><button class="secondary-button" id="about-issues">Read source notes ↗</button></div>`);$('about-issues').addEventListener('click',showIssues);}
+  function showAbout(){openDialog(`<h2 id="dialog-title">Built from your classroom.</h2><div class="about-copy"><p>${esc(data.meta.scope)}</p><div class="about-stats"><div><strong>${data.meta.decks}</strong><span>PowerPoint decks</span></div><div><strong>${data.meta.slides}</strong><span>Source slides</span></div><div><strong>${entries.length}</strong><span>Study locations</span></div><div><strong>${data.meta.images}</strong><span>Embedded images</span></div></div><p>${esc(data.meta.method)}</p><p><strong>Period filters:</strong> An entry may appear in more than one filter when its slides discuss background or later developments. Entries without precise dates use the lesson window; this is not evidence that a state existed for the entire window.</p><p><strong>Images:</strong> All historical illustrations come from the supplied presentations. Their original credits, where embedded, remain in the images. Images are not automatically contemporary or primary sources.</p><p><strong>Your work:</strong> Review status and TEA drafts save in this browser’s local storage. There are no accounts or uploads. Moving the folder, clearing browser data, or using a different browser may reset access to those drafts.</p><p><strong>Geography:</strong> Coastlines use the public-domain <a href="https://www.naturalearthdata.com/downloads/110m-physical-vectors/" target="_blank" rel="noreferrer">Natural Earth land dataset</a>. Marker locations and offsets are navigation aids, not historical claims about borders.</p><p><strong>Source cautions:</strong> ${data.issues.length} notes flag questionable claims, inconsistencies, or map-period mismatches in the decks. Check these with your teacher before using them in assessed work.</p><button class="secondary-button" id="about-issues">Read source notes ↗</button></div>`);$('about-issues').addEventListener('click',showIssues);}
   $('about-button').addEventListener('click',showAbout);
   function slideTitle(s){
+    if(s.visualTitle)return s.visualTitle;
     if(s.visualDescription && s.text.every(t=>!t.trim())) return s.visualDescription.split('.')[0];
     const candidates=s.text.filter(t=>t.trim() && !/^©/.test(t));
     return [...candidates].reverse().find(t=>t.length<90 && !/^AP World History/.test(t))||candidates[0]||`Image-only slide ${s.number}`;
   }
   decks.forEach(d=>{const option=document.createElement('option');option.value=d.id;option.textContent=`${d.label} · ${d.slides.length} slides`;$('deck-filter').append(option);});
   function renderLibrary(){
-    const query=normalized($('library-search').value).trim(),deck=$('deck-filter').value;
-    const slides=[...slideById.values()].filter(s=>(deck==='all'||s.deck.id===deck)&&normalized([...s.text,...s.notes,s.visualDescription||'',s.deck.label].join(' ')).includes(query));
+    const query=normalized($('library-search').value).trim(),deck=$('deck-filter').value,unit=$('library-unit').value;
+    const slides=[...slideById.values()].filter(s=>(unit==='all'||s.deck.unit===unit)&&(deck==='all'||s.deck.id===deck)&&normalized([...s.text,...s.notes,s.visualDescription||'',s.deck.label].join(' ')).includes(query));
     const size=12,pages=Math.max(1,Math.ceil(slides.length/size));state.libraryPage=Math.min(state.libraryPage,pages-1);
     $('library-count').textContent=`${slides.length} of ${data.meta.slides} slides${query?' match your search':''}`;
     $('slide-grid').innerHTML=slides.length?slides.slice(state.libraryPage*size,(state.libraryPage+1)*size).map(s=>{
@@ -210,11 +228,12 @@
     $('library-prev')?.addEventListener('click',()=>{state.libraryPage--;renderLibrary();$('library-count').scrollIntoView({block:'start'});});
     $('library-next')?.addEventListener('click',()=>{state.libraryPage++;renderLibrary();$('library-count').scrollIntoView({block:'start'});});
   }
+  $('library-unit').addEventListener('change',()=>{state.libraryPage=0;$('deck-filter').value='all';renderLibrary();});
   $('library-search').addEventListener('input',()=>{state.libraryPage=0;renderLibrary();});$('deck-filter').addEventListener('change',()=>{state.libraryPage=0;renderLibrary();});
 
   // Practice sessions use shuffled options, explanations, and retry queues.
   const shuffle = input => {const a=input.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
-  function renderPracticeScope(){const parts=[];if(state.period!=='all')parts.push($('period').selectedOptions[0].textContent);if(state.region!=='all')parts.push(state.region);if(state.query)parts.push(`“${state.query}”`);if(state.revisionOnly)parts.push('needs review');$('practice-scope').textContent=`${filtered.length} matching places${parts.length?' · '+parts.join(' · '):' · All classroom material'}. Change these filters on the map.`;}
+  function renderPracticeScope(){const parts=[];if(state.unit!=='all')parts.push(state.unit==='unit3'?'Unit 3':'Units 1–2');if(state.period!=='all')parts.push($('period').selectedOptions[0].textContent);if(state.region!=='all')parts.push(state.region);if(state.query)parts.push(`“${state.query}”`);if(state.revisionOnly)parts.push('needs review');$('practice-scope').textContent=`${filtered.length} matching places${parts.length?' · '+parts.join(' · '):' · All classroom material'}. Change these filters on the map.`;}
   function startQuiz(pool){
     const source=pool||filtered.filter(e=>!$('quiz-review-only').checked||state.progress[e.id]==='review');
     if(!source.length){$('quiz-area').innerHTML='<div class="quiz-empty"><h2>No questions in this selection</h2><p>Change the map filters or add a place to your review list.</p></div>';return;}
@@ -243,6 +262,10 @@
   $('quiz-area').addEventListener('click',event=>{const answer=event.target.closest('[data-answer]');if(answer)answerQuestion(Number(answer.dataset.answer));const revisit=event.target.closest('[data-revisit]');if(revisit){clearFilters();setView('explore');selectEntry(revisit.dataset.revisit,true);}});
 
   const comparisons=[
+    'Compare Ottoman tax farmers with Mughal zamindars. How did each arrangement connect local collection to imperial revenue?',
+    'Compare Ottoman devshirme recruitment with Tokugawa samurai service. How did officials and soldiers support political authority?',
+    'Compare Louis XIV’s divine right with the Sapa Inca’s sacred ancestry. Different beliefs could support a similar political purpose.',
+    'Compare Luther’s religious challenge with the Catholic response at Trent. Which authorities and teachings did each emphasize?',
     'Compare Aztec tribute through local rulers with Inca appointed officials. Both extracted resources, but organized authority differently.',
     'Compare Song examination officials with Japanese regional lords. Cultural influence coexisted with different political structures.',
     'Compare the Silk Roads’ luxury cargoes with the Indian Ocean’s bulk goods. How did transport costs shape exchange?',
@@ -259,13 +282,13 @@
     if(view==='explore'){filterAll();renderDetail();}
     if(view==='library')renderLibrary();
     if(view==='practice'){renderPracticeScope();if(!state.quiz)$('quiz-area').innerHTML='<div class="quiz-empty"><span class="big-symbol" aria-hidden="true">✳</span><h2>A little recall goes a long way.</h2><p>Start a session to test key distinctions, see explanations, and collect places to revisit.</p></div>';}
-    history.replaceState(null,'',`#${view}`);window.scrollTo(0,0);
+    history.replaceState(null,'',`#${view}`);window.ATLAS_THEME?.syncControls();window.scrollTo(0,0);
   }
   document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));
   document.querySelector('.brand').addEventListener('click',event=>{event.preventDefault();setView('explore');});
   document.addEventListener('keydown',event=>{if(event.key==='/' && !$('source-dialog').open && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){event.preventDefault();setView('explore');$('search').focus();}});
-  updateList();applyZoom();renderDetail();
+  filterAll();applyZoom();renderDetail();
   const initial=location.hash.slice(1);if(['practice','library'].includes(initial))setView(initial);
   // A read-only snapshot helps local validation without exposing or sending browser drafts.
-  window.ATLAS_READY={entries:entries.length,slides:slideById.size,version:1};
+  window.ATLAS_READY={entries:entries.length,slides:slideById.size,unit3:entries.filter(e=>e.units.includes('unit3')).length,version:2};
 })();

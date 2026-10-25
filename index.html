@@ -1,12 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-default-theme="classic" data-theme="classic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="An offline AP World History study atlas built from your classroom slides. Explore places, practice TEA responses, and revise with source-linked questions.">
+  <meta name="theme-color" content="#f7f5ef">
   <title>World History Atlas · APWH Study Map</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="unit3.css">
+  <link rel="stylesheet" href="glass.css">
   <script src="land.js" defer></script>
   <script src="sources.js" defer></script>
   <script src="data.js" defer></script>
@@ -30,12 +34,20 @@
     </div>
     <button class="about-button" id="about-button" aria-label="About sources and map">About this atlas <span aria-hidden="true">↗</span></button>
   </header>
+  <div class="edition-toolbar">
+    <div class="edition-scope"><strong>Units 1–3</strong><span>1200–1750 classroom atlas</span></div>
+    <div class="edition-switch" role="group" aria-label="Choose a visual style">
+      <a id="theme-classic" data-theme-choice="classic" href="classic.html" aria-current="page">Classic atlas</a>
+      <a id="theme-glass" data-theme-choice="glass" href="glass.html">Liquid Glass <span aria-hidden="true">✦</span></a>
+    </div>
+  </div>
   <main id="main" tabindex="-1">
     <section id="view-explore" class="view explore-view" aria-label="Explore the study map">
       <aside class="sidebar" aria-label="Search and filter locations">
         <div class="sidebar-intro"><span class="eyebrow">THE COLLECTION</span><h2>Places & connections</h2><p><span id="entry-count">0</span> places from your class slides</p></div>
         <label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search Aztecs, trade…" aria-label="Search places and study notes"><kbd>/</kbd></label>
-        <div class="filter-section"><label for="period">TIME PERIOD</label><select id="period"><option value="all">All periods</option><option value="core">1200–1450 · main</option><option value="before">Before 1200 · context</option><option value="after">After 1450 · later</option></select></div>
+        <div class="filter-section unit-filter"><label for="unit">COURSE UNIT</label><select id="unit"><option value="all">All units</option><option value="units12">Units 1–2 · 1200–1450</option><option value="unit3">Unit 3 · 1450–1750</option></select></div>
+        <div class="filter-section"><label for="period">TIME PERIOD</label><select id="period"><option value="all">All periods</option><option value="core">1200–1450</option><option value="earlymodern">1450–1750 · Unit 3</option><option value="before">Before 1200 · context</option><option value="after">Later extensions · Units 1–2</option></select></div>
         <div class="filter-section"><label for="region">REGION</label><select id="region"><option value="all">All regions</option></select></div>
         <div class="revision-line"><label><input type="checkbox" id="revision-only"> Needs review only</label><button id="clear-filters" class="text-button">Reset</button></div>
         <div class="list-heading"><span id="result-count" role="status" aria-live="polite"></span><span>SELECT A PLACE</span></div>
@@ -43,7 +55,7 @@
         <div class="sidebar-bottom"><span class="progress-track"><span id="progress-bar"></span></span><p id="progress-label"></p><small>Progress and drafts stay in this browser.</small></div>
       </aside>
       <section class="atlas-stage" aria-label="World map">
-        <div class="atlas-heading"><div class="eyebrow"><span class="live-dot"></span> AP WORLD HISTORY · UNITS 1 & 2</div><h1>A world of<br><em>connections.</em></h1><p>Explore a place. Find the evidence.<br>Build an answer that explains why.</p><div class="scope-note">Focus: c. 1200–1450 <span>Earlier context & later extensions included</span></div></div>
+        <div class="atlas-heading"><div class="eyebrow"><span class="live-dot"></span> AP WORLD HISTORY · UNITS 1–3</div><h1>A world of<br><em>connections.</em></h1><p>Explore a place. Find the evidence.<br>Build an answer that explains why.</p><div class="scope-note" id="scope-note">1200–1750 <span>Now including Unit 3: land-based empires</span></div></div>
         <div id="map-wrap" class="map-wrap">
           <svg id="world-map" viewBox="0 0 1100 610" role="group" aria-label="Interactive world study map. Select a marker, or use the location list. Drag to pan; use the zoom buttons to zoom.">
             <defs><pattern id="ocean-dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.65" fill="#bfcbc6" opacity=".42"/></pattern></defs>
@@ -84,8 +96,8 @@
     </section>
 
     <section id="view-library" class="view library-view" hidden aria-label="Classroom slide library">
-      <div class="page-intro"><span class="eyebrow">GO BACK TO THE EVIDENCE</span><h1>Your classroom <em>library.</em></h1><p>All seven decks, all 75 slides. Original text, speaker notes where present, and embedded images.</p></div>
-      <div class="library-controls"><label class="search-box"><span aria-hidden="true">⌕</span><input id="library-search" type="search" placeholder="Search original slide text…" aria-label="Search slide library"></label><label class="sr-only" for="deck-filter">Filter by deck</label><select id="deck-filter"><option value="all">All seven decks</option></select><button id="review-issues" class="secondary-button">5 source notes to check</button></div>
+      <div class="page-intro"><span class="eyebrow">GO BACK TO THE EVIDENCE</span><h1>Your classroom <em>library.</em></h1><p id="library-description">Original text, speaker notes where present, and embedded images from every classroom deck.</p></div>
+      <div class="library-controls"><label class="search-box"><span aria-hidden="true">⌕</span><input id="library-search" type="search" placeholder="Search original slide text…" aria-label="Search slide library"></label><label class="sr-only" for="library-unit">Filter library by unit</label><select id="library-unit"><option value="all">All units</option><option value="units12">Units 1–2</option><option value="unit3">Unit 3</option></select><label class="sr-only" for="deck-filter">Filter by deck</label><select id="deck-filter"><option value="all">All classroom decks</option></select><button id="review-issues" class="secondary-button">Source notes to check</button></div>
       <div id="library-count" class="muted" role="status"></div><div id="slide-grid" class="slide-grid"></div><div id="library-pagination" class="pagination"></div>
     </section>
   </main>

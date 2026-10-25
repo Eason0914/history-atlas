@@ -1,0 +1,13 @@
+/* Shared course additions. The original palette and typography stay in styles.css. */
+:root{--atlas-chrome:136px}
+.edition-toolbar{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 30px;border-bottom:1px solid var(--line);gap:15px}
+.edition-scope{display:flex;align-items:center;gap:12px;font-size:11px}.edition-scope strong{font-weight:600}.edition-scope>span{font-size:10px;color:var(--muted)}
+.edition-switch{display:flex;align-items:center;border:1px solid var(--line);padding:3px;border-radius:22px;gap:3px;background:var(--white)}
+.edition-switch>a{text-decoration:none;font-size:11px;padding:6px 14px;border-radius:18px;color:var(--muted);white-space:nowrap}.edition-switch>a[aria-current=page]{background:var(--ink);color:var(--paper)}.edition-switch>a:hover:not([aria-current=page]){background:var(--accent-bg);color:var(--accent)}
+.explore-view{min-height:calc(100vh - var(--atlas-chrome))}.sidebar,.detail-panel{max-height:calc(100vh - var(--atlas-chrome))}
+.entry-unit{font-size:8px;letter-spacing:.8px;margin-bottom:7px;color:var(--muted)}
+.image-period-note{margin:8px 0 0;font-size:10px;line-height:1.6;color:var(--accent);padding:8px 10px;border-left:2px solid var(--accent);background:var(--accent-bg)}
+.fact-evidence{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.fact-evidence .source-chip{font-size:8px;padding:2px 5px}
+.library-controls{flex-wrap:wrap}.library-controls #library-unit{max-width:140px}.library-controls #deck-filter{max-width:265px}.library-controls .search-box{min-width:230px}
+@media(max-width:1050px){.sidebar{max-height:840px}.detail-panel{max-height:none}.edition-toolbar{padding:0 24px}}
+@media(max-width:700px){.edition-toolbar{height:auto;min-height:60px;padding:9px 20px;gap:8px;flex-wrap:wrap}.edition-scope{font-size:10px;gap:8px}.edition-scope>span{display:none}.edition-switch>a{font-size:10px;padding:6px 10px}.sidebar{max-height:none}.sidebar .unit-filter{grid-column:1/-1}.sidebar .revision-line{grid-column:1/-1}.library-controls #library-unit{max-width:120px}.library-controls #deck-filter{max-width:none}.entry-unit{font-size:9px}.image-period-note{font-size:11px}.fact-evidence .source-chip{font-size:9px}.edition-toolbar .edition-switch{margin-left:auto}}

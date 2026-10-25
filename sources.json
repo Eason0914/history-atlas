@@ -352,7 +352,8 @@
       }
     ],
     "sha256": "e221dc27f4fbf928837ec5e3312cf9aad4587d07417345898f16c70d86080447",
-    "label": "East Asia"
+    "label": "East Asia",
+    "unit": "units12"
   },
   {
     "id": "d2",
@@ -687,7 +688,8 @@
       }
     ],
     "sha256": "cbf77fe3177e0a2642e552e775b9f856b6bc0ceeba6e6d31e14dfd8d3ed41bb8",
-    "label": "Dar al-Islam"
+    "label": "Dar al-Islam",
+    "unit": "units12"
   },
   {
     "id": "d3",
@@ -1101,7 +1103,8 @@
       }
     ],
     "sha256": "22d614409d794a9aa4cc69dd0b60235f0daa5fad432aa26d16bdc686641677bc",
-    "label": "South & Southeast Asia"
+    "label": "South & Southeast Asia",
+    "unit": "units12"
   },
   {
     "id": "d4",
@@ -1525,7 +1528,8 @@
       }
     ],
     "sha256": "9206d827383cd335608ba61f9af31f1703e5448b0774be006d8e2272c9d96141",
-    "label": "Americas"
+    "label": "Americas",
+    "unit": "units12"
   },
   {
     "id": "d5",
@@ -1844,7 +1848,8 @@
       }
     ],
     "sha256": "52dc0b06afea792de5adc75369a19310de6c24ad65e4aa8813b41b42b03a0888",
-    "label": "Africa"
+    "label": "Africa",
+    "unit": "units12"
   },
   {
     "id": "d6",
@@ -2087,7 +2092,8 @@
       }
     ],
     "sha256": "ac2174f4b0943354d981506fc3e288241db611a0c833e60800f03ef055d21be7",
-    "label": "Europe"
+    "label": "Europe",
+    "unit": "units12"
   },
   {
     "id": "d7",
@@ -2321,6 +2327,863 @@
       }
     ],
     "sha256": "b45c429a8406303d3738267ea768430e413d03bfce342583c5d11b0692fbd843",
-    "label": "Mongol Empire"
+    "label": "Mongol Empire",
+    "unit": "units12"
+  },
+  {
+    "id": "d8",
+    "label": "3.1 · Land-Based Empires",
+    "file": "3.1_-_Landbased_Empires.pptx",
+    "sha256": "fae57a384c1ab2a199ad3b5cfd1cd2feb7c72184a9d13f054a1fe8232626003c",
+    "unit": "unit3",
+    "slides": [
+      {
+        "id": "d8:1",
+        "number": 1,
+        "text": [
+          "PowerPoint 3.1",
+          "Landbased Empires",
+          "AP World History – Unit 3"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:2",
+        "number": 2,
+        "text": [
+          "How and why did land-based empires develop and expand between 1450 and 1750?",
+          "Driving Question"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:3",
+        "number": 3,
+        "text": [
+          "Between 1450 and 1750, powerful land-based empires expanded across Africa and Eurasia. These empires conquered neighboring territories, incorporated diverse populations, and competed for control of valuable land and resources.",
+          "One important factor behind their expansion was the increasing use of gunpowder weapons. Cannons and firearms helped rulers defeat enemies, capture fortified cities, and establish control over large territories.",
+          "The Ottoman, Safavid, Mughal, and Qing empires became major powers during this period. Although their histories differed, each expanded through military conquest and competition with neighboring states.",
+          "Empires Expand"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          },
+          {
+            "path": "assets/slides/d8-image2.png",
+            "original": "ppt/media/image2.png",
+            "bytes": 1050010,
+            "width": 808,
+            "height": 698,
+            "format": "PNG",
+            "display": "assets/web/d8-image2.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:4",
+        "number": 4,
+        "text": [
+          "Gunpowder was originally developed in China and spread across Eurasia through trade and warfare. By the 1400s, improvements in cannons and firearms were transforming military strategies.",
+          "Cannons were especially effective against fortified cities and defensive walls, while firearms increased the destructive power of armies. States that successfully incorporated these weapons could gain advantages over their rivals.",
+          "The term gunpowder empires is often used to describe powerful states such as the Ottoman, Safavid, and Mughal empires. However, military technology alone did not guarantee victory. Effective leadership, organization, and resources remained essential.",
+          "Gunpowder Empires"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          },
+          {
+            "path": "assets/slides/d8-image3.webp",
+            "original": "ppt/media/image3.webp",
+            "bytes": 25624,
+            "width": 474,
+            "height": 316,
+            "format": "WEBP",
+            "display": "assets/web/d8-image3.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:5",
+        "number": 5,
+        "text": [],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image4.png",
+            "original": "ppt/media/image4.png",
+            "bytes": 2387211,
+            "width": 1780,
+            "height": 1247,
+            "format": "PNG",
+            "display": "assets/web/d8-image4.webp"
+          }
+        ],
+        "visualDescription": "Image-only map showing the Safavid Empire in Persia beside the Ottoman Empire, with areas of overlap marked.",
+        "visualTitle": "Map · Safavid and Ottoman territories"
+      },
+      {
+        "id": "d8:6",
+        "number": 6,
+        "text": [],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image5.png",
+            "original": "ppt/media/image5.png",
+            "bytes": 2536037,
+            "width": 2382,
+            "height": 1690,
+            "format": "PNG",
+            "display": "assets/web/d8-image5.webp"
+          }
+        ],
+        "visualDescription": "Image-only map of Ottoman expansion. The legend distinguishes acquisitions from 1300 through 1683 and the boundary at its greatest extent in 1683–1699.",
+        "visualTitle": "Map · Ottoman expansion"
+      },
+      {
+        "id": "d8:7",
+        "number": 7,
+        "text": [],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image6.png",
+            "original": "ppt/media/image6.png",
+            "bytes": 1543050,
+            "width": 1038,
+            "height": 1038,
+            "format": "PNG",
+            "display": "assets/web/d8-image6.webp"
+          }
+        ],
+        "visualDescription": "Image-only map titled Growth of the Mughal Empire, 1526–1707. The Babur legend says 1525, while other areas are labeled as added by Akbar by 1605 and Aurangzeb by 1707. The conflicting first dates are preserved as a source caution.",
+        "visualTitle": "Map · Mughal expansion"
+      },
+      {
+        "id": "d8:8",
+        "number": 8,
+        "text": [
+          "The Ottoman Empire emerged in Anatolia (modern Turkey) and expanded into southeastern Europe, the Middle East, and North Africa. Its strategic position allowed Ottoman rulers to compete for important territories and trade routes.",
+          "In 1453, Sultan Mehmed II conquered Constantinople, the capital of the Byzantine Empire. Ottoman forces used powerful cannons to attack the city's defensive walls, ending the Byzantine Empire and establishing Constantinople, renamed Istanbul, as a major Ottoman capital.",
+          "The Ottomans followed Sunni Islam, the largest branch of Islam, which traditionally recognized the legitimacy of leaders chosen by the early Muslim community after Muhammad's death. This differed from Shia Islam, whose followers believed leadership rightfully belonged to Muhammad's family through Ali.",
+          "Under Suleiman the Magnificent (1520–1566), the Ottomans expanded further into Europe and the Middle East, becoming one of the most powerful empires of the early modern world.",
+          "Ottoman Empire"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          },
+          {
+            "path": "assets/slides/d8-image7.png",
+            "original": "ppt/media/image7.png",
+            "bytes": 476327,
+            "width": 812,
+            "height": 674,
+            "format": "PNG",
+            "display": "assets/web/d8-image7.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:9",
+        "number": 9,
+        "text": [
+          "The Safavid Empire emerged in Persia in 1501 under Shah Ismail I. Through military conquest, the Safavids established control over much of Persia and competed with neighboring powers.",
+          "Unlike the Sunni Ottoman Empire, the Safavids established Twelver Shia Islam as their official religion. Shia Muslims believed that legitimate religious leadership descended from Muhammad through Ali and his descendants. This religious distinction became an important part of Safavid identity.",
+          "Religious differences reinforced political and territorial rivalries between the Ottoman and Safavid empires. Both sought control over strategically important territories in the Middle East.",
+          "In 1514, Ottoman and Safavid armies fought at the Battle of Chaldiran. Ottoman firearms and artillery contributed to their victory, demonstrating the military importance of gunpowder technology. Their rivalry continued for generations.",
+          "Safavid Empire"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          },
+          {
+            "path": "assets/slides/d8-image4.png",
+            "original": "ppt/media/image4.png",
+            "bytes": 2387211,
+            "width": 1780,
+            "height": 1247,
+            "format": "PNG",
+            "display": "assets/web/d8-image4.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:10",
+        "number": 10,
+        "text": [
+          "The Mughal Empire was established in northern India by",
+          "Babur, a Central Asian ruler descended from Genghis Khan.",
+          "Babur sought to conquer territory in the wealthy Indian",
+          "subcontinent.",
+          "Babur defeated the Delhi Sultanate. His army used artillery",
+          "and firearms alongside cavalry and effective battlefield tactics.",
+          "This victory marked the beginning of Mughal rule in India.",
+          "Later Mughal rulers, including Akbar the Great, expanded the empire across much of South Asia. Their conquests brought large populations and diverse religious communities under Mughal rule.",
+          "Mughal Empire"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          },
+          {
+            "path": "assets/slides/d8-image6.png",
+            "original": "ppt/media/image6.png",
+            "bytes": 1543050,
+            "width": 1038,
+            "height": 1038,
+            "format": "PNG",
+            "display": "assets/web/d8-image6.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:11",
+        "number": 11,
+        "text": [
+          "In East Asia, the Manchus emerged as a powerful military force northeast of China. They developed strong cavalry armies and incorporated gunpowder weapons as they challenged the declining Ming Dynasty.",
+          "In 1644, Manchu forces entered Beijing and established the Qing Dynasty. Qing rulers gradually consolidated control over China and continued expanding into neighboring regions.",
+          "Under emperors such as Qianlong, the Qing expanded into areas including Mongolia, Tibet, and Xinjiang. Their conquests created one of the largest territorial empires in Chinese history.",
+          "Qing Dynasty"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          },
+          {
+            "path": "assets/slides/d8-image8.jpeg",
+            "original": "ppt/media/image8.jpeg",
+            "bytes": 125712,
+            "width": 1200,
+            "height": 800,
+            "format": "JPEG",
+            "display": "assets/web/d8-image8.webp"
+          }
+        ],
+        "visualDescription": "The embedded Qing map is captioned circa 1820, later than the 1450–1750 study window. It illustrates a later territorial extent rather than a single snapshot for the whole lesson."
+      },
+      {
+        "id": "d8:12",
+        "number": 12,
+        "text": [
+          "Following the decline of the Mali Empire in the 1400s, the Songhai Empire emerged as the dominant power in West Africa. Songhai expanded along the Niger River and controlled important trans-Saharan trade routes, including the wealthy cities of Gao and Timbuktu. Like Mali before it, Songhai benefited from the gold and salt trade and supported Islamic scholarship.",
+          "In 1591, North African Morocco invaded Songhai to gain control of its wealth and trade routes. Moroccan forces possessed firearms and artillery, while Songhai relied more heavily on cavalry and traditional weapons. At the Battle of Tondibi, Morocco's gunpowder weapons helped overcome Songhai's numerical advantage.",
+          "The defeat weakened Songhai's central authority and contributed to the empire's fragmentation. Songhai demonstrates how limited access to effective gunpowder weaponry could leave an empire vulnerable to better-equipped rivals.",
+          "Songhai Empire"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          },
+          {
+            "path": "assets/slides/d8-image9.webp",
+            "original": "ppt/media/image9.webp",
+            "bytes": 12816,
+            "width": 474,
+            "height": 474,
+            "format": "WEBP",
+            "display": "assets/web/d8-image9.webp"
+          }
+        ]
+      },
+      {
+        "id": "d8:13",
+        "number": 13,
+        "text": [
+          "Between 1450 and 1750, gunpowder weapons helped transform warfare and contributed to the expansion of powerful land-based empires. The Ottoman, Safavid, Mughal, and Qing empires established control over enormous territories and diverse populations.",
+          "However, expansion depended on more than technology. Military organization, political leadership, economic resources, and competition between states all influenced imperial success.",
+          "These expanding empires reshaped political boundaries across Afro-Eurasia. Their growth also created a new challenge: How could rulers maintain control over such large and diverse populations?",
+          "Why this matters"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d8-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 767154,
+            "width": 2000,
+            "height": 1198,
+            "format": "JPEG",
+            "display": "assets/web/d8-image1.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "d9",
+    "label": "3.2 · Empire Administration",
+    "file": "3.2_-_Empire_Administration.pptx",
+    "sha256": "ef5103a25b9938e70bffbd24783ee9a7a2ad546ab0619203b5e618739d3ca5cd",
+    "unit": "unit3",
+    "slides": [
+      {
+        "id": "d9:1",
+        "number": 1,
+        "text": [
+          "PowerPoint 3.2",
+          "Empire Administration",
+          "AP World History – Unit 3"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:2",
+        "number": 2,
+        "text": [
+          "How did rulers legitimize and consolidate their power in land-based empires between 1450 and 1750?",
+          "Driving Question"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:3",
+        "number": 3,
+        "text": [
+          "As land-based empires expanded between 1450 and 1750, rulers faced the challenge of governing enormous territories with diverse populations. Conquering territory was only the beginning; maintaining control required effective institutions and reliable sources of authority.",
+          "Rulers sought to consolidate power by strengthening central governments, recruiting loyal officials, and developing professional military forces. These institutions helped rulers enforce laws, maintain order, and limit the independence of powerful regional leaders.",
+          "They also needed to legitimize their rule, convincing subjects that their authority was rightful and deserved obedience. Religion, art, and monumental architecture helped accomplish this, while taxes and tribute provided the resources needed to govern.",
+          "Governing Landbased Empires"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image2.png",
+            "original": "ppt/media/image2.png",
+            "bytes": 579193,
+            "width": 484,
+            "height": 620,
+            "format": "PNG",
+            "display": "assets/web/d9-image2.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:4",
+        "number": 4,
+        "text": [
+          "As empires grew, rulers increasingly relied on bureaucracies, organized systems of officials responsible for carrying out government policies. Bureaucrats collected information, enforced laws, supervised provinces, and managed state resources.",
+          "Rulers also developed professional military forces that served the central government. Unlike armies assembled temporarily by regional nobles, these forces could provide rulers with more dependable military support.",
+          "By recruiting and training loyal administrators and soldiers, rulers strengthened centralized authority and reduced their dependence on powerful local elites. The Ottoman Empire and Tokugawa Japan developed important examples of these systems.",
+          "Bureaucracies and Military Professionals"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image3.jpeg",
+            "original": "ppt/media/image3.jpeg",
+            "bytes": 65519,
+            "width": 1024,
+            "height": 768,
+            "format": "JPEG",
+            "display": "assets/web/d9-image3.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:5",
+        "number": 5,
+        "text": [
+          "The Ottoman Empire developed the devshirme system, which recruited Christian boys, primarily from the Balkans, into imperial service. These boys were converted to Islam and educated or trained to serve the Ottoman government.",
+          "Some recruits entered the imperial bureaucracy, where they could become influential administrators. Others joined the Janissaries, an elite infantry force trained to fight for the sultan using firearms and disciplined military tactics.",
+          "Because these officials and soldiers were trained within the imperial system, the sultan could rely on their loyalty and reduce reliance on hereditary nobles. The devshirme helped the Ottomans maintain centralized control over their extensive empire.",
+          "The Ottoman Devshirme System"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image4.png",
+            "original": "ppt/media/image4.png",
+            "bytes": 836255,
+            "width": 546,
+            "height": 744,
+            "format": "PNG",
+            "display": "assets/web/d9-image4.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:6",
+        "number": 6,
+        "text": [
+          "After generations of civil warfare, the Tokugawa shogunate in 1603 began a period of greater political stability in Japan. The shogun held effective political authority, while the emperor was more ceremonial.",
+          "Japan remained divided into domains governed by powerful regional lords known as daimyo. The Tokugawa shogunate maintained control through regulations and obligations imposed on these lords.",
+          "As warfare declined, many samurai transitioned from warriors into salaried retainers and administrative officials. Their service helped maintain order and support the authority of the shogun and daimyo.",
+          "Japan - Tokugawa Shogunate"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image5.png",
+            "original": "ppt/media/image5.png",
+            "bytes": 931535,
+            "width": 504,
+            "height": 742,
+            "format": "PNG",
+            "display": "assets/web/d9-image5.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:7",
+        "number": 7,
+        "text": [
+          "Throughout history, rulers used religion to legitimize their authority, claiming that their right to govern came from divine powers. These beliefs encouraged obedience by presenting political leadership as part of a sacred order.",
+          "In Europe, some monarchs practiced absolutism, a system in which rulers sought to concentrate political authority in the monarchy and limit the independence of powerful nobles and other institutions.",
+          "Louis XIV of France became a prominent example of absolutism. He promoted the divine right of kings, the belief that monarchs received their authority directly from God. This helped justify his efforts to strengthen royal authority and discourage challenges to his rule.",
+          "In the Inca Empire, the Sapa Inca was considered a descendant of Inti, the sun god. This sacred ancestry reinforced the emperor's authority and connected political leadership to Incan religious beliefs.",
+          "Although their religious traditions differed, both rulers used divine authority to legitimize their power.",
+          "Divine Authority"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image6.png",
+            "original": "ppt/media/image6.png",
+            "bytes": 721640,
+            "width": 516,
+            "height": 652,
+            "format": "PNG",
+            "display": "assets/web/d9-image6.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:8",
+        "number": 8,
+        "text": [
+          "As land-based empires expanded, rulers governed populations with different religious beliefs. Some rulers practiced religious toleration, allowing subjects to maintain their faith and traditions. These policies helped reduce religious tensions and maintain political stability.",
+          "In the Ottoman Empire, the millet system allowed recognized religious communities, particularly Christians and Jews, to manage many of their own religious and legal affairs. Community leaders oversaw matters such as marriage, education, and religious practices while remaining under Ottoman authority.",
+          "Most Islamic empires, also collected the jizya, a special tax imposed on non-Muslim subjects, particularly Christians and Jews. In exchange, these communities generally received protection and permission to practice their religions, although they did not enjoy the same legal status as Muslims.",
+          "In the Mughal Empire, Emperor Akbar the Great promoted greater religious toleration toward his predominantly Hindu population. In 1564, he abolished the jizya tax and welcomed Hindus into government positions. These policies helped strengthen cooperation and loyalty among the empire's diverse religious communities.",
+          "Religious Toleration"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image7.webp",
+            "original": "ppt/media/image7.webp",
+            "bytes": 69000,
+            "width": 474,
+            "height": 603,
+            "format": "WEBP",
+            "display": "assets/web/d9-image7.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:9",
+        "number": 9,
+        "text": [
+          "Rulers also commissioned impressive artwork and monumental buildings to demonstrate their wealth, power, and legitimacy. Palaces, temples, portraits, and religious monuments made imperial authority visible to subjects and foreign visitors.",
+          "In France, Louis XIV built the Palace of Versailles, an enormous royal residence. Its elaborate architecture displayed royal wealth, while court life at Versailles helped the king supervise and influence powerful nobles.",
+          "In China, Qing imperial portraits presented emperors as dignified and legitimate rulers.",
+          "In the Inca Empire, the Temple of the Sun at Cuzco reinforced the sacred authority of the Sapa Inca, who was associated with the sun god Inti.",
+          "In Mughal India, rulers created magnificent mosques and mausoleums. The Taj Mahal demonstrated imperial wealth and artistic achievement",
+          "Art and Architecture"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image8.png",
+            "original": "ppt/media/image8.png",
+            "bytes": 1773653,
+            "width": 1190,
+            "height": 748,
+            "format": "PNG",
+            "display": "assets/web/d9-image8.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:10",
+        "number": 10,
+        "text": [
+          "As land-based empires expanded, rulers needed reliable sources of revenue to support their governments, maintain armies, and fund public projects. Taxes and tribute provided these resources. For example, the Mexica (Aztec) Empire required conquered peoples to provide tribute in the form of goods, agricultural products, and other valuable resources.",
+          "In the Ottoman Empire, rulers used tax farming, a system in which individuals purchased the right to collect taxes in a particular region. Tax farmers paid the government an agreed amount and could keep additional revenue as profit. This allowed the Ottoman government to collect revenue without directly managing every taxpayer.",
+          "In the Mughal Empire, zamindars were local landholders and elites who helped collect agricultural taxes from farmers. They transferred revenue to the imperial government while retaining a portion for themselves. By relying on established local authorities, Mughal rulers could collect taxes across their extensive territories.",
+          "In Ming China, the government increasingly required taxes to be paid in silver rather than goods or labor. This helped simplify taxation and increased demand for silver, connecting China's economy more closely to expanding global trade networks.",
+          "Taxation"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          },
+          {
+            "path": "assets/slides/d9-image9.jpeg",
+            "original": "ppt/media/image9.jpeg",
+            "bytes": 78390,
+            "width": 603,
+            "height": 783,
+            "format": "JPEG",
+            "display": "assets/web/d9-image9.webp"
+          }
+        ]
+      },
+      {
+        "id": "d9:11",
+        "number": 11,
+        "text": [
+          "Between 1450 and 1750, land-based empires developed a variety of methods to maintain control over their territories. Bureaucracies and military professionals helped rulers enforce their authority and consolidate power, while taxation and tribute supplied the resources necessary to support imperial governments.",
+          "Rulers also used religion, art, and monumental architecture to legitimize their power. These practices encouraged obedience, reinforced political hierarchies, and demonstrated the wealth and prestige of ruling dynasties.",
+          "Although different empires developed different systems, they faced similar challenges: controlling regional elites, securing revenue, and maintaining the loyalty of diverse populations. Imperial expansion required military strength, but imperial survival depended on effective administration.",
+          "Why this matters!"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d9-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 220977,
+            "width": 1361,
+            "height": 926,
+            "format": "JPEG",
+            "display": "assets/web/d9-image1.webp"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "d10",
+    "label": "3.3 · Empire Belief Systems",
+    "file": "3.3_-_Empire_Belief_Systems.pptx",
+    "sha256": "4a8ca29ab610a593d5a58f6e7d19f0a43ec1941783a0de8577beebab697e2ce2",
+    "unit": "unit3",
+    "slides": [
+      {
+        "id": "d10:1",
+        "number": 1,
+        "text": [
+          "PowerPoint 3.3",
+          "Empire Belief Systems",
+          "AP World History – Unit 3"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d10-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 1642450,
+            "width": 5300,
+            "height": 2409,
+            "format": "JPEG",
+            "display": "assets/web/d10-image1.webp"
+          }
+        ]
+      },
+      {
+        "id": "d10:2",
+        "number": 2,
+        "text": [
+          "How did religious beliefs change and develop between 1450 and 1750, and how did political rivalries and cultural interactions influence these changes?",
+          "Driving Question"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d10-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 1642450,
+            "width": 5300,
+            "height": 2409,
+            "format": "JPEG",
+            "display": "assets/web/d10-image1.webp"
+          }
+        ]
+      },
+      {
+        "id": "d10:3",
+        "number": 3,
+        "text": [
+          "During the early sixteenth century, the Roman Catholic Church was the dominant religious institution in Western Europe. However, growing criticism of Church corruption and religious practices challenged its authority. One controversial practice was the sale of indulgences, which were associated with reducing punishment for sins.",
+          "In 1517, German monk Martin Luther published his Ninety-Five Theses, criticizing the sale of indulgences. Luther argued that salvation came through faith alone, rather than through good works or payments to the Church. He also taught that the Bible, rather than the pope, should be the highest religious authority.",
+          "Luther's ideas spread rapidly through the printing press, encouraging the growth of Protestant Christianity. New denominations, including Lutheranism and Calvinism, challenged Catholic authority. Some European rulers supported Protestant movements to gain greater independence from the Catholic Church.",
+          "The Protestant Reformation permanently divided Western Christianity and contributed to religious and political conflicts across Europe.",
+          "The Protestant Reformation"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d10-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 1642450,
+            "width": 5300,
+            "height": 2409,
+            "format": "JPEG",
+            "display": "assets/web/d10-image1.webp"
+          },
+          {
+            "path": "assets/slides/d10-image2.png",
+            "original": "ppt/media/image2.png",
+            "bytes": 551630,
+            "width": 531,
+            "height": 765,
+            "format": "PNG",
+            "display": "assets/web/d10-image2.webp"
+          }
+        ]
+      },
+      {
+        "id": "d10:4",
+        "number": 4,
+        "text": [
+          "The Catholic Church responded to the Protestant Reformation through a movement known as the Catholic Reformation, or Counter-Reformation. Church leaders sought to correct abuses, strengthen religious discipline, and reaffirm Catholic beliefs.",
+          "At the Council of Trent (1545–1563), Catholic leaders reaffirmed the authority of the Church, the importance of faith and good works, and traditional Catholic teachings. They also introduced reforms to improve the education and conduct of priests.",
+          "The Catholic Church also expanded its missionary activities. The Jesuits, a Catholic religious order, established schools and sent missionaries throughout the world. Missionaries helped spread Catholic Christianity into parts of Asia, while Spanish and Portuguese colonial expansion contributed to the growth of Christianity in the Americas.",
+          "Although the Reformation divided European Christianity, both Protestant and Catholic movements contributed to Christianity's continued expansion during this period.",
+          "The Catholic Counter Reformation"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d10-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 1642450,
+            "width": 5300,
+            "height": 2409,
+            "format": "JPEG",
+            "display": "assets/web/d10-image1.webp"
+          },
+          {
+            "path": "assets/slides/d10-image2.png",
+            "original": "ppt/media/image2.png",
+            "bytes": 551630,
+            "width": 531,
+            "height": 765,
+            "format": "PNG",
+            "display": "assets/web/d10-image2.webp"
+          }
+        ]
+      },
+      {
+        "id": "d10:5",
+        "number": 5,
+        "text": [
+          "In South Asia, centuries of interaction between Hindu and Muslim communities created an environment in which new religious ideas could develop. During the late fifteenth century, Guru Nanak founded Sikhism in northern India.",
+          "Sikhism emerged in a society influenced by both Hinduism and Islam, but developed into a distinct religious tradition. Guru Nanak taught belief in one God, the spiritual equality of all people, and the importance of honest work, service, and devotion. Sikh teachings challenged caste discrimination and emphasized that individuals could develop a direct relationship with God.",
+          "Over time, a succession of Sikh gurus helped organize and expand the religious community. Under Mughal rule, Sikh communities sometimes experienced conflict with imperial authorities, contributing to their growing political and military organization.",
+          "The Golden Temple in Amritsar, which developed into Sikhism's most important religious center, symbolizes the lasting influence of this new religious tradition.",
+          "Development of Sikhism"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d10-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 1642450,
+            "width": 5300,
+            "height": 2409,
+            "format": "JPEG",
+            "display": "assets/web/d10-image1.webp"
+          },
+          {
+            "path": "assets/slides/d10-image3.png",
+            "original": "ppt/media/image3.png",
+            "bytes": 1389740,
+            "width": 966,
+            "height": 723,
+            "format": "PNG",
+            "display": "assets/web/d10-image3.webp"
+          }
+        ]
+      },
+      {
+        "id": "d10:6",
+        "number": 6,
+        "text": [
+          "Between 1450 and 1750, religious traditions continued to influence societies and political authority, but they also underwent significant transformations. The Protestant Reformation divided Western Christianity, while the Catholic Reformation strengthened Catholic institutions and expanded Christianity around the world. In the Islamic world, Ottoman–Safavid political competition intensified existing Sunni–Shi'a divisions. In South Asia, interactions between religious traditions contributed to the emergence of Sikhism.",
+          "These developments reveal that religion was not simply a source of unity. It could also create political rivalries, challenge established authority, and inspire new communities. Many of the religious divisions and traditions that developed or intensified during this period continue to influence societies today.",
+          "Why this matters!"
+        ],
+        "notes": [],
+        "images": [
+          {
+            "path": "assets/slides/d10-image1.jpeg",
+            "original": "ppt/media/image1.jpeg",
+            "bytes": 1642450,
+            "width": 5300,
+            "height": 2409,
+            "format": "JPEG",
+            "display": "assets/web/d10-image1.webp"
+          },
+          {
+            "path": "assets/slides/d10-image4.png",
+            "original": "ppt/media/image4.png",
+            "bytes": 1596020,
+            "width": 1031,
+            "height": 818,
+            "format": "PNG",
+            "display": "assets/web/d10-image4.webp"
+          }
+        ]
+      }
+    ]
   }
 ]

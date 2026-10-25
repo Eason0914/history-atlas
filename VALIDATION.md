@@ -1,11 +1,13 @@
 # Local verification
 
-Verified in a temporary headless Google Chrome profile on Windows, with a desktop viewport of 1480 × 1000 and a mobile viewport of 390 × 844.
+41 browser and content checks passed for the Unit 3 update in a temporary headless Chrome profile on Windows.
 
-30 browser checks passed, including initial loading, all map locations, coastline geometry, searches, empty results, period and region filters, review lists, TEA models and saved drafts after reload, exact source-slide dialogs, slide-library search and pagination, source cautions, full 37-question quiz results, missed-question retry, zoom and reset, every location image, direct-file opening, and mobile horizontal overflow.
+Coverage includes 48 unique entries, 105 source slides across ten decks, exact slide references for each new factual note, all 48 location images, the 14 Unit 3 entries, time and unit filters, library filtering/pagination, source cautions, and completion/retry of a Unit 3 quiz.
 
-The browser reported no runtime exceptions and made no external network requests. The test local server and browser were stopped afterward.
+Both editions were checked at widths of 1480, 1100, 720, 390, and 320 pixels, and by direct-file opening. Desktop and mobile screenshots were inspected. Reduced motion and reduced transparency were verified for the glass edition.
 
-Content checks verified unique location IDs, complete TEA and MCQ data, four distinct options per question, every source reference and image path, and all seven original deck hashes. Extracted original images match the presentation files byte for byte. The supplied PowerPoints remain unchanged.
+Existing browser storage keys and entry IDs were preserved. Earlier Aztec drafts and review status still load, new drafts survive reload, and edition switching preserves the selected place, unit, draft, and active quiz.
 
-The desktop and mobile layouts were inspected visually. Verification does not certify official AP exam coverage or resolve the five classroom-source cautions listed in the site.
+All new slides were read, including three image-only maps. The circa-1820 Qing map and inconsistent first dates on the Mughal map are labeled as source cautions. No browser runtime exceptions occurred. Temporary browser and local server processes were stopped afterward.
+
+The original PowerPoints remain unchanged. These checks do not certify official AP exam coverage or resolve the seven classroom-source cautions.
