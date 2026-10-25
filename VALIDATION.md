@@ -1,6 +1,6 @@
 # Local verification
 
-41 browser and content checks passed for the Unit 3 update in a temporary headless Chrome profile on Windows.
+43 browser and content checks passed for the Unit 3 update in a temporary headless Chrome profile on Windows.
 
 Coverage includes 48 unique entries, 105 source slides across ten decks, exact slide references for each new factual note, all 48 location images, the 14 Unit 3 entries, time and unit filters, library filtering/pagination, source cautions, and completion/retry of a Unit 3 quiz.
 
