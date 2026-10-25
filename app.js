@@ -63,14 +63,18 @@
   const featured=new Set(['aztec','inca','maya','cahokia','song','japan','mongols','baghdad','delhi','malacca','mali','swahili','zimbabwe','western-europe','calicut']);
   ['ottoman','safavid','mughal','qing','songhai','tokugawa'].forEach(id=>featured.add(id));
   const markerEls=new Map();
+  function activateMarker(id,input) {
+    const activation=new CustomEvent('atlas:marker-activate',{detail:{id,input},cancelable:true});
+    if(document.dispatchEvent(activation))selectEntry(id);
+  }
   entries.forEach(e=>{
     const [x,y]=project(e.lon,e.lat);const [ox,oy]=offsets[e.id]||[0,0];
     const g=svgEl('g',{class:'marker','data-entry':e.id,role:'button',tabindex:'0','aria-label':`${e.name}. ${e.summary}`,transform:`translate(${x+ox},${y+oy})`});
     if(ox||oy) g.append(svgEl('line',{x1:-ox,y1:-oy,x2:0,y2:0,class:'leader'}));
     g.append(svgEl('circle',{r:15,fill:'transparent'}));g.append(svgEl('circle',{r:7,class:'marker-halo'}));g.append(svgEl('circle',{r:4.7,class:'marker-core'}));
     const text=svgEl('text',{x:10,y:3,class:'marker-label'});text.textContent=e.name.replace('Empire','').replace('city-states','').replace(' & Indian Ocean','').trim();g.append(text);
-    g.addEventListener('click',()=>{if(!dragMoved)selectEntry(e.id);});
-    g.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();selectEntry(e.id);}});
+    g.addEventListener('click',()=>{if(!dragMoved)activateMarker(e.id,'pointer');});
+    g.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();activateMarker(e.id,'keyboard');}});
     const showTip = () => {
       const r=g.getBoundingClientRect(),wrap=$('map-wrap').getBoundingClientRect();$('map-tooltip').textContent=e.name;$('map-tooltip').classList.add('visible');
       $('map-tooltip').style.left=Math.max(8,Math.min(r.left-wrap.left,wrap.width-210))+'px';$('map-tooltip').style.top=Math.max(8,r.top-wrap.top-32)+'px';
@@ -119,7 +123,9 @@
     state.selected=id;state.tab='notes';state.model=false;renderDetail();updateList();updateMarkers();$('map-tooltip').classList.remove('visible');
     $('detail-panel').scrollTop=0;
     if(scroll || innerWidth<1051) $('detail-panel').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    document.dispatchEvent(new CustomEvent('atlas:entry-selected',{detail:{id}}));
   }
+  document.addEventListener('atlas:open-entry',event=>selectEntry(event.detail?.id,event.detail?.scroll===true));
   function imageSource(e) {return e.refs.find(ref=>slideById.get(ref)?.images.some(i=>i.path===e.image)) || [...slideById.values()].find(s=>s.images.some(i=>i.path===e.image))?.id;}
   function renderDetail() {
     const e=current();

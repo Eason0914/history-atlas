@@ -9,6 +9,8 @@ An offline AP World History study map based on ten classroom PowerPoint decks: *
 
 Use the edition switch at the top without leaving your current answer or quiz. Both editions share the same content, source library, drafts, and review records. The home page remembers your preferred look; each edition’s URL opens that specific look.
 
+An optional [live-map glass prototype](https://eason0914.github.io/history-atlas/glass.html?prototype=live-map&unit=unit3) adds a floating navigation bar and marker preview over the live map. Select a marker, then **Expand study notes** to open the existing lesson. This first-stage experiment does not replace either regular edition. See [design, implementation, and compatibility notes](LIVE-GLASS.md).
+
 The glass edition follows the separation between navigation and reading content described in [Apple’s material guidance](https://developer.apple.com/design/human-interface-guidelines/materials). It uses browser CSS rather than native Apple APIs, respects reduced-motion and reduced-transparency preferences, and provides an opaque fallback when blur is unavailable.
 
 The map ocean uses the Classic edition's pale green background and dot pattern, with no ocean photograph, refraction, or animation. Navigation, map controls, study actions, and quiz answers retain their glass optics so the text stays clear. Reduced-motion and reduced-transparency preferences are respected.
