@@ -2,7 +2,7 @@
    a screenshot or image of the map. The live scene remains the filter's input. */
 (() => {
   'use strict';
-  function generate(width,height,radius){
+  function generate(width,height,radius,maxDisplacement=6){
     const ratio=Math.min(1,1000/width),w=Math.max(1,Math.round(width*ratio)),h=Math.max(1,Math.round(height*ratio));
     const make=()=>{const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;return canvas;};
     const normalCanvas=make(),diffusionCanvas=make(),lightCanvas=make();
@@ -30,7 +30,7 @@
       else if(qx>qy)nx=Math.sign(px);else ny=Math.sign(py);
       const u=Math.max(0,Math.min(1,depth/bevel)),sample=u*256,low=Math.floor(sample);
       const value=profile[low]+(profile[Math.min(256,low+1)]-profile[low])*(sample-low);
-      const offset=distance<=0?value/peak*6:0,index=(y*w+x)*4;
+      const offset=distance<=0?value/peak*maxDisplacement:0,index=(y*w+x)*4;
       normal.data[index]=Math.round(128+nx*offset/20*255);
       normal.data[index+1]=Math.round(128+ny*offset/20*255);normal.data[index+2]=128;normal.data[index+3]=255;
       // Center-only diffusion protects text while leaving the optical rim crisp.
@@ -45,7 +45,7 @@
       light.data[index]=color[0];light.data[index+1]=color[1];light.data[index+2]=color[2];light.data[index+3]=Math.round(opacity*255);
     }
     context.putImageData(normal,0,0);diffusionContext.putImageData(diffusion,0,0);lightContext.putImageData(light,0,0);
-    return{normal:normalCanvas.toDataURL(),diffusion:diffusionCanvas.toDataURL(),light:lightCanvas.toDataURL(),bevel,maxDisplacement:6};
+    return{normal:normalCanvas.toDataURL(),diffusion:diffusionCanvas.toDataURL(),light:lightCanvas.toDataURL(),bevel,maxDisplacement};
   }
   window.ATLAS_GLASS_MATERIAL=Object.freeze({generate});
 })();

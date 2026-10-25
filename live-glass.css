@@ -7,6 +7,7 @@ html[data-map-prototype=live][data-theme=glass] .live-glass{isolation:isolate;ov
 .live-glass[data-glass-renderer=svg-map]>.live-glass-optics{display:none}
 .live-glass[data-glass-renderer=svg-map]>.live-glass-fallback{display:block}
 [data-glass-active=false]>.live-glass-optics,[data-glass-active=false]>.live-glass-tint,[data-glass-active=false]>.live-glass-fallback{display:none!important}
+[data-glass-active=false]>.live-glass-edge{display:none!important}
 .live-glass[data-glass-renderer=opaque]{background:#f6f9ff!important}
 .live-glass[data-glass-renderer=opaque]>.live-glass-optics,.live-glass[data-glass-renderer=opaque]>.live-glass-fallback{display:none}
 .live-glass>:not(.live-glass-optics):not(.live-glass-tint):not(.live-glass-fallback):not(.live-glass-edge){position:relative;z-index:2}

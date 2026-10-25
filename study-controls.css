@@ -1,0 +1,31 @@
+/* Right-side actions share the approved preview material. Historical images and
+   long-form text are intentionally outside this optical component. */
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control.live-glass{--glass-tint-alpha:.780;background:transparent;border:1px solid transparent;border-radius:var(--study-control-radius,12px);color:#235b94;box-shadow:0 3px 8px -4px #203c6538,0 1px 2px #203c6514;transition:transform .15s ease,box-shadow .15s ease}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control>.liquid-control-optics,html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control:after{display:none!important}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control>.live-glass-optics{backdrop-filter:var(--live-lens-filter);-webkit-backdrop-filter:var(--live-lens-filter);border-radius:inherit}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control>.live-glass-tint{background:linear-gradient(155deg,rgb(243 249 255 / calc(var(--glass-tint-alpha)*.5)),rgb(233 241 252 / var(--glass-tint-alpha)) 55%,rgb(219 232 247 / calc(var(--glass-tint-alpha)*.7)));box-shadow:none;border-radius:inherit}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control>.live-glass-edge{border-radius:inherit}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control>.liquid-control-label{filter:none;color:inherit}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control:hover{background:transparent;box-shadow:0 4px 10px -4px #203c6540,0 1px 3px #203c651b}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control:active{transform:scale(.98)}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .primary-button.study-glass-control{color:#145db6;font-weight:600}
+html[data-map-prototype=live][data-theme=glass] .detail-tabs .study-glass-control{color:#536b83}
+html[data-map-prototype=live][data-theme=glass] .detail-tabs .study-glass-control.active{color:#145db6;border-color:#aac7e8;font-weight:600}
+html[data-map-prototype=live][data-theme=glass] .detail-tabs .study-glass-control.active>.live-glass-tint{background:linear-gradient(155deg,#f4faffc9,#dceaffd9)}
+html[data-map-prototype=live][data-theme=glass] .review-actions .study-glass-control.chosen{color:#285f4a;border-color:#9fbfac}
+html[data-map-prototype=live][data-theme=glass] .review-actions .study-glass-control.chosen>.live-glass-tint{background:linear-gradient(155deg,#f0fbf5cb,#d9eee2db)}
+html[data-map-prototype=live][data-theme=glass] .review-actions .study-glass-control.review.chosen,html[data-map-prototype=live][data-theme=glass] .detail-panel .save-button.study-glass-control.saved{color:#145db6;border-color:#aac7e8}
+html[data-map-prototype=live][data-theme=glass] .review-actions .study-glass-control.review.chosen>.live-glass-tint,html[data-map-prototype=live][data-theme=glass] .detail-panel .save-button.study-glass-control.saved>.live-glass-tint{background:linear-gradient(155deg,#f4faffc9,#dceaffd9)}
+html[data-map-prototype=live][data-theme=glass] .detail-panel .source-chip{background:linear-gradient(155deg,#f3f9ff85,#e9f1fcc7);border-color:#c9d9ec;color:#4a6d94;box-shadow:inset 0 1px 0 #ffffffd9,inset 0 -1px 0 #294b7012}
+/* A non-map fallback retains the real panel's neutral surface; it never invents
+   geography behind controls in the nearly opaque study panel. */
+html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control[data-glass-renderer=surface-tint]>.live-glass-optics{backdrop-filter:blur(1px);-webkit-backdrop-filter:blur(1px)}
+.study-glass-control[data-glass-renderer=surface-tint]>.live-glass-fallback{display:none}
+html[data-theme=classic] .study-glass-control>.live-glass-optics,html[data-theme=classic] .study-glass-control>.live-glass-tint,html[data-theme=classic] .study-glass-control>.live-glass-edge,html[data-theme=classic] .study-glass-control>.live-glass-fallback{display:none!important}
+@media(prefers-reduced-motion:reduce){.study-glass-control{transition:none!important;transform:none!important}}
+@media(prefers-reduced-transparency:reduce),(forced-colors:active){
+  html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control.live-glass{background:#f4f8ff;border-color:#b8cce4}
+  html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control.chosen{background:#e2f1e8}
+  html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control.saved,html[data-map-prototype=live][data-theme=glass] .detail-tabs .study-glass-control.active{background:#e0ecfc}
+}
+@media(forced-colors:active){html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control.live-glass{background:ButtonFace;color:ButtonText;border-color:ButtonText}html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control.active,html[data-map-prototype=live][data-theme=glass] .detail-panel .study-glass-control.chosen{background:Highlight;color:HighlightText}}

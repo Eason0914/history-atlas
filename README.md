@@ -13,6 +13,8 @@ An optional [live-map glass prototype](https://eason0914.github.io/history-atlas
 
 All location preview cards now use the approved B · Refined material, defaulting to Tinted 100%, with no diagnostic grid. [Compare A/B live](https://eason0914.github.io/history-atlas/glass.html?prototype=live-map&diagnostics=glass&unit=unit3&v=optics3) using optional diagnostic controls, or read the [audit, captures and acceptance results](GLASS-OPTICS.md). The existing map-first layout, navigation and reading-panel materials are retained.
 
+The map-first edition's right-side study actions now share that refined material: tabs, save/review buttons, model-response actions and quiz launch buttons. Their old ocean-photo texture is removed; selected/review states and sharp labels are retained. Source chips use the same quiet surface colors. The reading panel and historical images remain intact. Native controls sample their actual panel backdrop; other engines use a neutral surface fallback, without placing map imagery behind an opaque study panel.
+
 The glass edition follows the separation between navigation and reading content described in [Apple’s material guidance](https://developer.apple.com/design/human-interface-guidelines/materials). It uses browser CSS rather than native Apple APIs, respects reduced-motion and reduced-transparency preferences, and provides an opaque fallback when blur is unavailable.
 
 The map ocean uses the Classic edition's pale green background and dot pattern, with no ocean photograph, refraction, or animation. Navigation, map controls, study actions, and quiz answers retain their glass optics so the text stays clear. Reduced-motion and reduced-transparency preferences are respected.

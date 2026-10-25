@@ -52,8 +52,9 @@
   }
 
   class LiveGlassPane {
-    constructor(element,name){
+    constructor(element,name,options={}){
       this.element=element;this.size='';this.material='current';this.tintAmount=.28;this.failed=false;
+      this.sceneSource=options.source||'map';this.strength=options.strength??6;
       this.filter=svg('filter',{id:`atlas-live-${name}`,filterUnits:'userSpaceOnUse',primitiveUnits:'userSpaceOnUse','color-interpolation-filters':'sRGB'});
       this.heightMap=svg('feImage',{preserveAspectRatio:'none',result:'lens-normal'});
       this.filter.append(this.heightMap,svg('feDisplacementMap',{in:'SourceGraphic',in2:'lens-normal',scale:'20',xChannelSelector:'R',yChannelSelector:'G'}));defs.append(this.filter);
@@ -101,7 +102,7 @@
     setActive(active){
       this.element.classList.toggle('live-glass',active);
       this.element.dataset.glassActive=String(active);
-      this.element.dataset.glassRenderer=transparency.matches||contrast.matches||this.failed?'opaque':nativeBackdrop?'native-backdrop':'svg-map';
+      this.element.dataset.glassRenderer=transparency.matches||contrast.matches||this.failed?'opaque':nativeBackdrop?'native-backdrop':this.sceneSource==='map'?'svg-map':'surface-tint';
       if(active)this.resize();
     }
     resize(){
@@ -109,7 +110,7 @@
       const r=this.element.getBoundingClientRect(),width=this.material==='refined'?this.element.clientWidth:Math.round(r.width),height=this.material==='refined'?this.element.clientHeight:Math.round(r.height);
       const key=`${this.material}:${width}x${height}`;if(width<1||height<1||key===this.size)return;this.size=key;
       const radius=(parseFloat(getComputedStyle(this.element).borderRadius)||24)-(this.material==='refined'?1:0);
-      const textures=this.material==='refined'?window.ATLAS_GLASS_MATERIAL.generate(width,height,radius):null;
+      const textures=this.material==='refined'?window.ATLAS_GLASS_MATERIAL.generate(width,height,radius,Math.min(this.strength,height*.12)):null;
       const uri=this.material==='refined'?textures?.normal:lensMap(width,height,radius);
       if(!uri){this.failed=true;this.element.dataset.glassRenderer='opaque';return;}
       for(const [name,value] of Object.entries({x:-12,y:-12,width:width+24,height:height+24}))this.filter.setAttribute(name,value);
@@ -128,6 +129,7 @@
       const box=map.viewBox.baseVal;
       for(const name of ['x','y','width','height'])this.ocean.setAttribute(name,box[name]);
     }
+    destroy(){this.observer.disconnect();this.filter.remove();}
   }
 
   const card=document.createElement('section');card.id='marker-preview';card.className='marker-preview';card.hidden=true;
@@ -144,6 +146,33 @@
   try{const value=localStorage.getItem(tintStorageKey);if(value!==null&&Number.isFinite(Number(value)))savedTint=Math.max(0,Math.min(1,Number(value)));}catch(_){}
   cardPane.setTint(savedTint);
   const enabled=()=>root.dataset.theme==='glass';
+  // Reuse the approved material for study actions, sampling their actual reading
+  // surface rather than placing the map behind buttons inside an opaque panel.
+  const studyPanel=document.getElementById('detail-panel'),studyPanes=new Map();
+  const studyButtons='.save-button,.detail-tabs button,.primary-button,.secondary-button,.review-actions button';
+  let studySerial=0,studyFrame=0;
+  function enhanceStudyControls(){
+    studyFrame=0;
+    for(const [button,pane] of studyPanes){
+      if(!studyPanel.contains(button)||!button.contains(pane.optics)){pane.destroy();studyPanes.delete(button);}
+    }
+    for(const button of studyPanel.querySelectorAll(studyButtons)){
+      if(!button.querySelector(':scope>.liquid-control-label'))continue;
+      let pane=studyPanes.get(button);
+      if(!pane){
+        if(!enabled())continue;
+        button.style.setProperty('--study-control-radius',getComputedStyle(button).borderRadius||'12px');
+        button.classList.add('study-glass-control');
+        pane=new LiveGlassPane(button,`study-${++studySerial}`,{source:'surface',strength:2.5});
+        pane.setMaterial('refined');pane.setTint(1);studyPanes.set(button,pane);
+      }
+      pane.setActive(enabled());
+    }
+  }
+  function scheduleStudyControls(){if(!studyFrame)studyFrame=requestAnimationFrame(enhanceStudyControls);}
+  new MutationObserver(scheduleStudyControls).observe(studyPanel,{childList:true,subtree:true});
+  new MutationObserver(scheduleStudyControls).observe(root,{attributes:true,attributeFilter:['data-theme']});
+  enhanceStudyControls();
   const setAttribute=(element,name,value)=>{if(element.getAttribute(name)!==String(value))element.setAttribute(name,value);};
   function visibleBounds(){
     const r=wrap.getBoundingClientRect(),header=document.querySelector('.site-header').getBoundingClientRect();
