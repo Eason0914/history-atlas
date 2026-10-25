@@ -5,11 +5,15 @@ An offline AP World History study map based on ten classroom PowerPoint decks: *
 ## Two editions
 
 - [Classic atlas](https://eason0914.github.io/history-atlas/classic.html): the original parchment, serif typography, and green map palette.
-- [Liquid Glass](https://eason0914.github.io/history-atlas/glass.html): an Apple-inspired web interpretation with translucent navigation, blurred sidebars, rounded controls, and calm reading surfaces.
+- [Liquid Glass](https://eason0914.github.io/history-atlas/glass.html): an Apple-inspired web interpretation with a refracted ocean photograph, convex glass buttons, translucent navigation, and calm reading surfaces.
 
 Use the edition switch at the top without leaving your current answer or quiz. Both editions share the same content, source library, drafts, and review records. The home page remembers your preferred look; each edition’s URL opens that specific look.
 
 The glass edition follows the separation between navigation and reading content described in [Apple’s material guidance](https://developer.apple.com/design/human-interface-guidelines/materials). It uses browser CSS rather than native Apple APIs, respects reduced-motion and reduced-transparency preferences, and provides an opaque fallback when blur is unavailable.
+
+The ocean uses a bundled photograph with WebGL refraction, subtle color separation, edge highlights, and a lens that follows the pointer. Direct-file opening and browsers without WebGL use SVG displacement. Land, place markers, and labels keep their original coordinates. Navigation, map controls, study actions, and quiz answers have separate glass optics so the text stays clear. Animation pauses when the map is hidden or offscreen. Reduced motion uses a static ocean; reduced transparency removes optical distortion.
+
+The decorative ocean photo is by Adrian Pelletier, published as CC0 on Pixnio; see [asset credits](assets/OCEAN-CREDIT.md). It is separate from the 100 classroom images and adds no historical source material.
 
 ## Open the website
 
@@ -69,7 +73,7 @@ Both editions retain the original browser storage key and original entry IDs, so
 
 ## Project files
 
-`index.html` is the shared page template. After editing it, run `python tools/generate_editions.py` to regenerate `classic.html` and `glass.html`. `theme.js` switches editions without resetting study state. `styles.css` retains the original design, `unit3.css` contains shared course additions, and `glass.css` contains scoped glass styles. Deck IDs `d8`, `d9`, and `d10` identify the new Unit 3 sources.
+`index.html` is the shared page template. After editing it, run `python tools/generate_editions.py` to regenerate `classic.html` and `glass.html`. `theme.js` switches editions without resetting study state. `styles.css` retains the original design, `unit3.css` contains shared course additions, and `glass.css` contains scoped glass styles. `ocean-glass.js` and `ocean-glass.css` add the photo refraction and button optics. Deck IDs `d8`, `d9`, and `d10` identify the new Unit 3 sources.
 
 
 `index.html`, `styles.css`, and `app.js` implement the interface. `data.js` contains curated entries and practice questions. Each question’s first data option is the correct one; the interface randomizes answer order. `sources.js` contains all source slides for direct-file use; `sources.json` is the readable extraction. `land.js` contains bundled map geometry.

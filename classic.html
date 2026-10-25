@@ -11,10 +11,12 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="unit3.css">
   <link rel="stylesheet" href="glass.css">
+  <link rel="stylesheet" href="ocean-glass.css">
   <script src="land.js" defer></script>
   <script src="sources.js" defer></script>
   <script src="data.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="ocean-glass.js" defer></script>
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to study content</a>
@@ -57,6 +59,13 @@
       <section class="atlas-stage" aria-label="World map">
         <div class="atlas-heading"><div class="eyebrow"><span class="live-dot"></span> AP WORLD HISTORY · UNITS 1–3</div><h1>A world of<br><em>connections.</em></h1><p>Explore a place. Find the evidence.<br>Build an answer that explains why.</p><div class="scope-note" id="scope-note">1200–1750 <span>Now including Unit 3: land-based empires</span></div></div>
         <div id="map-wrap" class="map-wrap">
+          <div id="ocean-surface" class="ocean-surface" aria-hidden="true" data-renderer="pending">
+            <canvas id="ocean-canvas"></canvas>
+            <svg class="ocean-svg-fallback" viewBox="0 0 1100 610" preserveAspectRatio="none" focusable="false">
+              <defs><filter id="ocean-photo-refraction" x="-12%" y="-12%" width="124%" height="124%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.007 0.011" numOctaves="2" seed="12" result="ocean-flow"/><feGaussianBlur in="ocean-flow" stdDeviation="2.4" result="ocean-normal"/><feDisplacementMap in="SourceGraphic" in2="ocean-normal" scale="46" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+              <image id="ocean-fallback-photo" x="-40" y="-24" width="1180" height="658" preserveAspectRatio="xMidYMid slice" filter="url(#ocean-photo-refraction)"/>
+            </svg>
+          </div>
           <svg id="world-map" viewBox="0 0 1100 610" role="group" aria-label="Interactive world study map. Select a marker, or use the location list. Drag to pan; use the zoom buttons to zoom.">
             <defs><pattern id="ocean-dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.65" fill="#bfcbc6" opacity=".42"/></pattern></defs>
             <rect width="1100" height="610" fill="url(#ocean-dots)"/>
@@ -69,7 +78,7 @@
         </div>
         <div class="map-legend"><span><i class="legend-dot"></i> Study location</span><span><i class="legend-dot selected"></i> Selected</span><span><i class="legend-dot known"></i> Reviewed</span></div>
         <div class="connection-note"><span class="note-icon" aria-hidden="true">↔</span><div><span class="eyebrow">THINK ACROSS REGIONS</span><p id="connection-text">Compare how states organized power, adapted to their environments, and connected through exchange.</p></div><button class="text-button" id="connection-next" aria-label="Next comparison idea">Next ↗</button></div>
-        <footer class="map-footer"><span>Approximate location pins, not empire borders.</span><a href="https://www.naturalearthdata.com/downloads/110m-physical-vectors/" target="_blank" rel="noreferrer">Base map: Natural Earth ↗</a></footer>
+        <footer class="map-footer"><span>Approximate location pins, not empire borders.</span><a class="ocean-credit" href="https://pixnio.com/media/dark-dark-blue-liquid-shadow-surface" target="_blank" rel="noopener noreferrer">Ocean photo · Adrian Pelletier ↗</a><a href="https://www.naturalearthdata.com/downloads/110m-physical-vectors/" target="_blank" rel="noreferrer">Base map: Natural Earth ↗</a></footer>
       </section>
       <aside id="detail-panel" class="detail-panel" aria-label="Selected location study panel" tabindex="-1"></aside>
     </section>
@@ -103,6 +112,7 @@
   </main>
   <dialog id="source-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">CLASSROOM SOURCE</span><button id="dialog-close" class="icon-button" aria-label="Close dialog">×</button></div><div id="dialog-content"></div></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <svg class="liquid-optics-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><filter id="atlas-control-refraction" x="-25%" y="-40%" width="150%" height="180%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.019 0.052" numOctaves="2" seed="8" result="button-height"/><feGaussianBlur in="button-height" stdDeviation="1.15" result="button-normal"/><feDisplacementMap in="SourceGraphic" in2="button-normal" scale="18" xChannelSelector="R" yChannelSelector="G"/></filter></defs></svg>
   <noscript>This atlas needs JavaScript. Enable it in your browser and reopen this page.</noscript>
 </body>
 </html>
