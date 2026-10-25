@@ -92,14 +92,22 @@
   }
   const zoom={k:1,x:0,y:0};
   const applyZoom = () => { $('map-world').setAttribute('transform',`translate(${zoom.x} ${zoom.y}) scale(${zoom.k})`); updateMarkers(); $('zoom-in').disabled=zoom.k>=4;$('zoom-out').disabled=zoom.k<=1; };
-  const zoomBy = factor => {const old=zoom.k;zoom.k=Math.min(4,Math.max(1,old*factor));const ratio=zoom.k/old;zoom.x=550-(550-zoom.x)*ratio;zoom.y=305-(305-zoom.y)*ratio;if(zoom.k===1)zoom.x=zoom.y=0;applyZoom();};
+  const zoomBy = (factor,anchor={x:550,y:305}) => {const old=zoom.k;zoom.k=Math.min(4,Math.max(1,old*factor));if(zoom.k===old)return;const ratio=zoom.k/old;zoom.x=anchor.x-(anchor.x-zoom.x)*ratio;zoom.y=anchor.y-(anchor.y-zoom.y)*ratio;if(zoom.k===1)zoom.x=zoom.y=0;applyZoom();};
   $('zoom-in').addEventListener('click',()=>zoomBy(1.35));$('zoom-out').addEventListener('click',()=>zoomBy(1/1.35));$('zoom-reset').addEventListener('click',()=>{zoom.k=1;zoom.x=zoom.y=0;applyZoom();});
   let drag=null,dragMoved=false;
   const mapPoint=event=>{const p=$('world-map').createSVGPoint();p.x=event.clientX;p.y=event.clientY;return p.matrixTransform($('world-map').getScreenCTM().inverse());};
-  $('world-map').addEventListener('pointerdown',event=>{if(event.button!==0 || event.target.closest('.marker'))return;const p=mapPoint(event);drag={id:event.pointerId,x:p.x,y:p.y,zx:zoom.x,zy:zoom.y};dragMoved=false;$('world-map').setPointerCapture(event.pointerId);$('world-map').classList.add('dragging');});
-  $('world-map').addEventListener('pointermove',event=>{if(!drag)return;const p=mapPoint(event);const dx=p.x-drag.x,dy=p.y-drag.y;if(Math.abs(dx)+Math.abs(dy)>5)dragMoved=true;zoom.x=Math.max(-1100*zoom.k+100,Math.min(1000,drag.zx+dx));zoom.y=Math.max(-610*zoom.k+100,Math.min(510,drag.zy+dy));applyZoom();});
-  const endDrag=()=>{drag=null;$('world-map').classList.remove('dragging');setTimeout(()=>{dragMoved=false;},0);};
-  $('world-map').addEventListener('pointerup',endDrag);$('world-map').addEventListener('pointercancel',endDrag);
+  $('world-map').addEventListener('pointerdown',event=>{if(drag || event.button!==0 || event.target.closest('.marker'))return;event.preventDefault();const p=mapPoint(event);drag={id:event.pointerId,x:p.x,y:p.y,zx:zoom.x,zy:zoom.y};dragMoved=false;$('world-map').setPointerCapture(event.pointerId);$('world-map').classList.add('dragging');document.body.classList.add('map-panning');});
+  $('world-map').addEventListener('pointermove',event=>{if(!drag || event.pointerId!==drag.id)return;const p=mapPoint(event);const dx=p.x-drag.x,dy=p.y-drag.y;if(Math.abs(dx)+Math.abs(dy)>5){if(!dragMoved)window.getSelection()?.removeAllRanges();dragMoved=true;}zoom.x=Math.max(-1100*zoom.k+100,Math.min(1000,drag.zx+dx));zoom.y=Math.max(-610*zoom.k+100,Math.min(510,drag.zy+dy));applyZoom();});
+  const endDrag=event=>{if(!drag || (event?.pointerId!==undefined && event.pointerId!==drag.id))return;drag=null;$('world-map').classList.remove('dragging');document.body.classList.remove('map-panning');setTimeout(()=>{dragMoved=false;},0);};
+  $('world-map').addEventListener('pointerup',endDrag);$('world-map').addEventListener('pointercancel',endDrag);$('world-map').addEventListener('lostpointercapture',endDrag);window.addEventListener('blur',endDrag);
+  document.addEventListener('selectstart',event=>{if(drag)event.preventDefault();});
+  $('world-map').addEventListener('wheel',event=>{
+    if(event.ctrlKey || event.metaKey || drag || !event.deltaY)return;
+    event.preventDefault();
+    const unit=event.deltaMode===1?16:event.deltaMode===2?$('world-map').clientHeight:1;
+    const step=Math.max(-.3,Math.min(.3,-event.deltaY*unit*.0025));
+    zoomBy(Math.exp(step),mapPoint(event));
+  },{passive:false});
 
   function updateList() {
     $('result-count').textContent=`${filtered.length} ${filtered.length===1?'place':'places'}`;

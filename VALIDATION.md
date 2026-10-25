@@ -40,3 +40,7 @@ All 43 existing study/edition checks and 28 prototype checks passed again. An ad
 ## Approved all-card rollout
 
 All 48 locations were opened and checked for B · Refined, the Tinted 100% setting (0.780 peak tint and 2.35px center diffusion), and unfiltered text. Thirteen focused rollout checks passed, covering migration from old trial preferences, absent diagnostic grid, actual Aztec marker clicks and Expand, zoom, Mughal card bounds at 390px and 320px, a non-Qing SVG fallback, lab defaults with the grid off, unchanged navigation/reading materials, and no runtime exceptions. Desktop Aztec and mobile Mughal captures were inspected.
+
+## Map layout and gestures
+
+Twenty-six focused browser checks passed for the comparison card's bottom alignment with both side panels at 1100/1480/2048px, footer placement, horizontal centers of all three zoom glyphs, real pointer panning without text selection, restoration of reading selection after release and interrupted gestures, actual wheel zoom anchored under the pointer, reverse wheel input and scale limits, independent reading-panel scrolling, line/page wheel units, preserved Ctrl+wheel behavior, refined previews and Expand, 720/390/320px layouts, and absence of runtime exceptions. Desktop layout and zoom-control captures were inspected. All 43 existing content, source, image, draft, quiz and edition checks passed again.

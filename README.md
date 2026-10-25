@@ -34,6 +34,7 @@ This opens `http://127.0.0.1:8765`. Keep that window running while you study. Pr
 ## Study features
 
 - Click a world-map marker or a place in the list to read notes and view a slide image.
+- Drag the map to pan without selecting page text. Scroll over the map to zoom around the pointer, or use the centered + / − / reset controls. Scrolling a reading panel stays independent; Ctrl/Command + wheel remains available for browser zoom.
 - Search names and study content. “Aztecs” finds the Aztec entry. Use `/` to focus search.
 - The atlas initially highlights **Unit 3**. Filter by unit, region, **1200–1450**, **1450–1750**, earlier context, or extensions in the earlier decks. Tags describe lesson coverage, not uninterrupted rule. New Unit 3 notes have individual slide references.
 - Use **SAQ · TEA** for Topic, Evidence, Analysis models and your own draft. Drafts save automatically in this browser, including drafts saved before the label update.

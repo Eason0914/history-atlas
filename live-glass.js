@@ -174,6 +174,10 @@
     wrap.style.setProperty('--live-controls-right',`${r.right-b.right+6}px`);
     wrap.style.setProperty('--live-controls-bottom',`${r.bottom-b.bottom+6}px`);
     wrap.style.setProperty('--live-help-bottom',`${r.bottom-b.bottom+8}px`);
+    wrap.style.setProperty('--live-help-right',`${r.right-b.right+58}px`);
+    const stage=document.querySelector('.atlas-stage').getBoundingClientRect(),region=explore.getBoundingClientRect();
+    explore.style.setProperty('--live-footer-left',`${stage.left-region.left+4}px`);
+    explore.style.setProperty('--live-footer-right',`${region.right-stage.right+4}px`);
   }
   function closePreview(restoreFocus=false){
     if(!preview)return;
