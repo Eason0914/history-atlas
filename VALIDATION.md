@@ -24,3 +24,7 @@ The 43 checks above were rerun after the optics update and passed. A further 22 
 - The 390px mobile layout has no horizontal overflow. Direct-file opening uses the SVG displacement fallback and local ocean asset. Source attribution is present, and no browser runtime exceptions occurred.
 
 Desktop, practice, and full-page mobile screenshots were inspected. The ocean photograph is decorative and does not change the slide library's count of 100 historical images. No historical content or quiz data changed in this optics update. These checks cover Chromium desktop and mobile emulation; they are not a physical iPhone/Safari certification.
+
+## Restore the Classic ocean
+
+The map ocean was subsequently restored to Classic's static pale green background, dot pattern, and ocean label colors. The ocean renderer was removed; button and quiz styling remained identical. Twelve focused browser checks passed for the restored background, absence of ocean animation, unchanged glass controls, map selection and zoom, draft retention, mobile overflow, direct-file opening, and absence of runtime errors. The desktop screenshot was inspected. The earlier ocean-refraction checks above describe the preceding revision.
