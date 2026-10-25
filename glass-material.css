@@ -1,11 +1,11 @@
 /* Optical refinement only. Camera, columns, navigation and reading panels retain
-   their existing layout. The new material is scoped to the Qing preview. */
+   their existing layout. Approved refined material applies to all previews. */
 .preview-context{font-size:9px;line-height:1.5;color:#53687e;margin:-5px 0 12px}
 html[data-map-prototype=live][data-theme=glass] .marker.previewing.preview-pending .marker-core{fill:#fff;stroke:#2869a8;stroke-width:2}
 html[data-map-prototype=live][data-theme=glass] .marker.previewing.preview-pending .marker-halo{stroke-dasharray:3 2;stroke-width:2;fill:#ffffffad}
 html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]{border:1px solid transparent;box-shadow:0 10px 22px -9px #203c6545,0 2px 4px #203c651c}
 html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]>.live-glass-optics{backdrop-filter:var(--live-lens-filter);-webkit-backdrop-filter:var(--live-lens-filter);border-radius:20px}
-html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]>.live-glass-tint{box-shadow:none;background:linear-gradient(155deg,rgb(243 249 255 / calc(var(--glass-tint-alpha,.269)*.5)),rgb(233 241 252 / var(--glass-tint-alpha,.269)) 55%,rgb(219 232 247 / calc(var(--glass-tint-alpha,.269)*.7)));border-radius:20px}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]>.live-glass-tint{box-shadow:none;background:linear-gradient(155deg,rgb(243 249 255 / calc(var(--glass-tint-alpha,.78)*.5)),rgb(233 241 252 / var(--glass-tint-alpha,.78)) 55%,rgb(219 232 247 / calc(var(--glass-tint-alpha,.78)*.7)));border-radius:20px}
 .live-glass-edge{position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:20px;background-size:100% 100%;background-repeat:no-repeat}
 .live-glass-edge:after{content:"";position:absolute;inset:0;padding:1.2px;border-radius:inherit;pointer-events:none;background:radial-gradient(ellipse at var(--glass-light-x,25%) var(--glass-light-y,0%),#ffffffc7 0,#ffffff33 38%,transparent 73%);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;opacity:.6}
 html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-meta{color:#3e5770}

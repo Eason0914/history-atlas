@@ -1,5 +1,7 @@
 # Qing China: live-glass optical audit and comparison
 
+**Approved follow-up:** all location preview cards now use B · Refined with **Tinted 100%** as their default. Trial-era tint preferences are superseded once; later adjustments remain user-controlled. The diagnostic grid defaults off, including in the lab. The captures and measurements below document the original Qing comparison at 28% tint; the layout, navigation and reading panels remain unchanged.
+
 [Open the interactive A/B diagnostic](https://eason0914.github.io/history-atlas/glass.html?prototype=live-map&diagnostics=glass&unit=unit3&v=optics2). It opens the Qing China preview, a thin grid in the actual moving map scene, and temporary controls. Select A or B at the **same position**; drag the exposed map or use the zoom buttons. **Hold card still** separates backdrop movement from marker following. Closing diagnostics removes the grid and restores normal following.
 
 [Open the normal map-first page](https://eason0914.github.io/history-atlas/glass.html?prototype=live-map&unit=unit3&v=optics2) for the refined Qing card without any diagnostic overlays. Other marker previews, navigation, the layout, the Classic ocean, and long reading panels retain their existing materials/layouts. This iteration changes the Qing material first.

@@ -138,8 +138,10 @@
   const headerPane=new LiveGlassPane(document.querySelector('.site-header'),'navigation');
   const cardPane=new LiveGlassPane(card,'preview');
   let comparisonMaterial=params.get('material')==='current'?'current':'refined',diagnosticPinned=false;
-  let savedTint=.28;
-  try{const value=localStorage.getItem('classroom-atlas-glass-tint');if(value!==null&&Number.isFinite(Number(value)))savedTint=Math.max(0,Math.min(1,Number(value)));}catch(_){}
+  // New approved default also replaces preferences saved during the Qing trial.
+  const tintStorageKey='classroom-atlas-glass-tint-v2';
+  let savedTint=1;
+  try{const value=localStorage.getItem(tintStorageKey);if(value!==null&&Number.isFinite(Number(value)))savedTint=Math.max(0,Math.min(1,Number(value)));}catch(_){}
   cardPane.setTint(savedTint);
   const enabled=()=>root.dataset.theme==='glass';
   const setAttribute=(element,name,value)=>{if(element.getAttribute(name)!==String(value))element.setAttribute(name,value);};
@@ -222,7 +224,7 @@
     card.querySelector('.preview-dates').textContent=entry.dates;
     card.querySelector('.preview-summary').textContent=entry.summary;
     card.dataset.entry=id;root.dataset.previewEntry=id;syncPreviewState();
-    cardPane.setMaterial(id==='qing'?comparisonMaterial:'current');
+    cardPane.setMaterial(id==='qing'?comparisonMaterial:'refined');
     marker.classList.add('previewing');marker.setAttribute('aria-expanded','true');marker.setAttribute('aria-controls',card.id);
     card.hidden=false;cardPane.setActive(true);positionPreview();cardPane.syncMap();
     if(input==='keyboard'&&!card.hidden)card.querySelector('.preview-expand').focus({preventScroll:true});
@@ -246,7 +248,7 @@
   document.addEventListener('atlas:glass-settings',event=>{
     const settings=event.detail||{};
     if(settings.material){comparisonMaterial=settings.material==='current'?'current':'refined';if(preview?.id==='qing')cardPane.setMaterial(comparisonMaterial);}
-    if(Number.isFinite(settings.tint)){cardPane.setTint(settings.tint);try{localStorage.setItem('classroom-atlas-glass-tint',String(cardPane.tintAmount));}catch(_){}}
+    if(Number.isFinite(settings.tint)){cardPane.setTint(settings.tint);try{localStorage.setItem(tintStorageKey,String(cardPane.tintAmount));}catch(_){}}
     if(typeof settings.pinned==='boolean'){diagnosticPinned=settings.pinned;card.dataset.pinned=String(diagnosticPinned);if(preview)delete preview.pinned;}
     schedule();
   });

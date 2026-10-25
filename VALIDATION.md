@@ -36,3 +36,7 @@ The existing 43 browser/content checks passed after the three optional app integ
 ## Qing optical refinement
 
 All 43 existing study/edition checks and 28 prototype checks passed again. An additional 29 focused checks passed for the Qing material, A/B controls, live-scene grid, stationary-card pan/zoom, no-blur edge displacement, sharp foreground text, directional light-map pixels, tint storage, idle rendering, marker following, Expand and filter-driven selection synchronization, unchanged geography, accessibility, forced SVG fallback, mobile bounds and diagnostic teardown. The line probe measured up to 2.10px edge displacement and 0.00px at center samples with diffusion disabled. No runtime exceptions occurred. See [audit and captured evidence](GLASS-OPTICS.md) for the test conditions, screenshots and browser limits.
+
+## Approved all-card rollout
+
+All 48 locations were opened and checked for B · Refined, the Tinted 100% setting (0.780 peak tint and 2.35px center diffusion), and unfiltered text. Thirteen focused rollout checks passed, covering migration from old trial preferences, absent diagnostic grid, actual Aztec marker clicks and Expand, zoom, Mughal card bounds at 390px and 320px, a non-Qing SVG fallback, lab defaults with the grid off, unchanged navigation/reading materials, and no runtime exceptions. Desktop Aztec and mobile Mughal captures were inspected.
