@@ -1,0 +1,129 @@
+{
+  "checks": [
+    {
+      "check": "Diagnostic opens Qing with refined live backdrop and stationary-card mode",
+      "passed": true
+    },
+    {
+      "check": "Grid is a non-interactive part of the actual moving map scene",
+      "passed": true
+    },
+    {
+      "check": "No map snapshot or unrelated photo is used by the card optics",
+      "passed": true
+    },
+    {
+      "check": "Diffusion and displacement are confined to the optical layer",
+      "passed": true
+    },
+    {
+      "check": "Uncommitted preview explicitly names the currently open lesson",
+      "passed": true
+    },
+    {
+      "check": "A restores the previous two-primitive renderer and fixed milky tint",
+      "passed": true
+    },
+    {
+      "check": "A/B changes optics while keeping card geometry and layout fixed",
+      "passed": true
+    },
+    {
+      "check": "Refined tint is substantially below the previous white fill",
+      "passed": true
+    },
+    {
+      "check": "The test gesture starts on exposed map, not an overlay",
+      "passed": true
+    },
+    {
+      "check": "Acceptance 1: actual pan changes refracted content behind stationary glass",
+      "passed": true
+    },
+    {
+      "check": "Live zoom changes the backdrop while preserving the pinned card",
+      "passed": true
+    },
+    {
+      "check": "Acceptance 2: edge lines bend with blur disabled; center stays neutral",
+      "passed": true
+    },
+    {
+      "check": "Acceptance 3: sharp foreground text never passes through a filter",
+      "passed": true
+    },
+    {
+      "check": "Acceptance 4: directional light texture and hover highlight are present",
+      "passed": true
+    },
+    {
+      "check": "Specular map has bright upper light and a dark lower edge",
+      "passed": true
+    },
+    {
+      "check": "Ultra-clear to tinted slider changes material and saves its setting",
+      "passed": true
+    },
+    {
+      "check": "No permanent idle animation or diagnostic mutation loop",
+      "passed": true
+    },
+    {
+      "check": "Normal mode restores marker-following behavior",
+      "passed": true
+    },
+    {
+      "check": "Acceptance 5: following card tracks drag without jitter or clipping",
+      "passed": true
+    },
+    {
+      "check": "Expand synchronizes the actual lesson, selected marker, and sidebar",
+      "passed": true
+    },
+    {
+      "check": "Geographic paths and historical content remain unchanged",
+      "passed": true
+    },
+    {
+      "check": "Filter-driven lesson changes also synchronize preview state",
+      "passed": true
+    },
+    {
+      "check": "Navigation still uses its original material",
+      "passed": true
+    },
+    {
+      "check": "Accessibility settings remove optics, highlights and motion",
+      "passed": true
+    },
+    {
+      "check": "Cross-engine fallback uses the same live map and refined filter",
+      "passed": true
+    },
+    {
+      "check": "Mobile diagnostics and Qing card remain within the viewport",
+      "passed": true
+    },
+    {
+      "check": "Closing diagnostics removes the grid and stationary-card override",
+      "passed": true
+    },
+    {
+      "check": "Temporary diagnostics are absent from the ordinary map-first view",
+      "passed": true
+    },
+    {
+      "check": "No runtime exceptions during comparison and acceptance tests",
+      "passed": true
+    }
+  ],
+  "edgeShifts": {
+    "7": 1.038,
+    "11": 1.66,
+    "15": 2.1,
+    "20": 0.7,
+    "27": 0.0,
+    "50": 0.0,
+    "140": 0.0
+  }
+}

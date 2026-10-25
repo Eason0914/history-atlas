@@ -1,0 +1,18 @@
+{
+  "renderer": "native-backdrop",
+  "cardFilter": "none",
+  "cardBackdrop": "none",
+  "opticalBackdrop": "url(\"#atlas-live-preview\") saturate(1.08)",
+  "tint": "linear-gradient(145deg, rgba(255, 255, 255, 0.61), rgba(243, 246, 255, 0.78) 60%, rgba(236, 242, 255, 0.62))",
+  "border": "1px solid rgba(255, 255, 255, 0.93)",
+  "shadow": "rgba(37, 71, 98, 0.098) 0px 10px 30px 0px, rgba(37, 71, 98, 0.05) 0px 2px 6px 0px, rgb(255, 255, 255) 0px 1px 1px 0px inset",
+  "filterPrimitives": [
+    "feImage",
+    "feDisplacementMap"
+  ],
+  "sourceImageIsOnlyNormalMap": true,
+  "fallbackSource": "#map-world",
+  "mapTransform": "translate(0 0) scale(1)",
+  "sharpText": "none",
+  "edgePixelDifference": 16.371836007130124
+}

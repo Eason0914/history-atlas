@@ -1,5 +1,7 @@
 # Live map glass: stage-one prototype
 
+The layout and integration described here remain the foundation. A subsequent [Qing-only optical refinement](GLASS-OPTICS.md) adds smooth six-pixel edge displacement, masked diffusion, directional light, adjustable tint and temporary A/B diagnostics. Navigation and the other preview materials retain the first-pass treatment described below.
+
 Open [the prototype](https://eason0914.github.io/history-atlas/glass.html?prototype=live-map&unit=unit3). The regular `glass.html` and `classic.html` pages retain their existing layouts and direct marker-to-lesson behavior. Locally, run `python serve.py` and append `?prototype=live-map` to `glass.html`; direct-file opening works too.
 
 ## Design rationale

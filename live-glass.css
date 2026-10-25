@@ -9,7 +9,7 @@ html[data-map-prototype=live][data-theme=glass] .live-glass{isolation:isolate;ov
 [data-glass-active=false]>.live-glass-optics,[data-glass-active=false]>.live-glass-tint,[data-glass-active=false]>.live-glass-fallback{display:none!important}
 .live-glass[data-glass-renderer=opaque]{background:#f6f9ff!important}
 .live-glass[data-glass-renderer=opaque]>.live-glass-optics,.live-glass[data-glass-renderer=opaque]>.live-glass-fallback{display:none}
-.live-glass>:not(.live-glass-optics):not(.live-glass-tint):not(.live-glass-fallback){position:relative;z-index:2}
+.live-glass>:not(.live-glass-optics):not(.live-glass-tint):not(.live-glass-fallback):not(.live-glass-edge){position:relative;z-index:2}
 html[data-map-prototype=live][data-theme=glass] .site-header.live-glass{border-color:#fff;border-radius:26px}
 html[data-map-prototype=live][data-theme=glass] .site-header nav{background:#f4f7fd40;border-color:#fff9;box-shadow:inset 0 1px 1px #ffffff9c}
 /* Retain the current controls, but let these two prototype panes refract the map itself. */

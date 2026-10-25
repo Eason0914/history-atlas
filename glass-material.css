@@ -1,0 +1,37 @@
+/* Optical refinement only. Camera, columns, navigation and reading panels retain
+   their existing layout. The new material is scoped to the Qing preview. */
+.preview-context{font-size:9px;line-height:1.5;color:#53687e;margin:-5px 0 12px}
+html[data-map-prototype=live][data-theme=glass] .marker.previewing.preview-pending .marker-core{fill:#fff;stroke:#2869a8;stroke-width:2}
+html[data-map-prototype=live][data-theme=glass] .marker.previewing.preview-pending .marker-halo{stroke-dasharray:3 2;stroke-width:2;fill:#ffffffad}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]{border:1px solid transparent;box-shadow:0 10px 22px -9px #203c6545,0 2px 4px #203c651c}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]>.live-glass-optics{backdrop-filter:var(--live-lens-filter);-webkit-backdrop-filter:var(--live-lens-filter);border-radius:20px}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]>.live-glass-tint{box-shadow:none;background:linear-gradient(155deg,rgb(243 249 255 / calc(var(--glass-tint-alpha,.269)*.5)),rgb(233 241 252 / var(--glass-tint-alpha,.269)) 55%,rgb(219 232 247 / calc(var(--glass-tint-alpha,.269)*.7)));border-radius:20px}
+.live-glass-edge{position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:20px;background-size:100% 100%;background-repeat:no-repeat}
+.live-glass-edge:after{content:"";position:absolute;inset:0;padding:1.2px;border-radius:inherit;pointer-events:none;background:radial-gradient(ellipse at var(--glass-light-x,25%) var(--glass-light-y,0%),#ffffffc7 0,#ffffff33 38%,transparent 73%);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;opacity:.6}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-meta{color:#3e5770}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-summary{color:#263f58}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-expand{background:#f6fbff7d;border-color:#ffffff91;box-shadow:inset 0 1px 0 #ffffffa3,0 1px 2px #12385817}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-expand:hover{background:#f6fbffb8}
+html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-close{background:#f4f9ff61;border-color:#ffffff70}
+/* Explicitly temporary diagnostics: off unless the URL requests them. */
+#glass-diagnostics{position:fixed;z-index:25;left:var(--diagnostic-left,280px);bottom:22px;width:var(--diagnostic-width,480px);max-width:calc(100vw - 24px);padding:13px 15px;border:1px solid #abb9c9;border-radius:15px;background:#f8fbfff5;color:#20354c;box-shadow:0 4px 18px #203c6517;font-size:11px}
+#glass-diagnostics .diagnostic-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+#glass-diagnostics h2{font:600 12px var(--sans);margin:0;letter-spacing:0}
+#glass-diagnostics .diagnostic-close{font-size:17px;width:25px;height:25px;border-radius:50%;color:#4a6178}
+#glass-diagnostics .diagnostic-variants{display:flex;gap:6px;margin:0 0 9px}
+#glass-diagnostics [data-material]{flex:1;padding:7px 9px;border:1px solid #bac8d8;border-radius:9px;background:#fff;font-size:10px}
+#glass-diagnostics [data-material][aria-pressed=true]{background:#e4effb;border-color:#5283ba;color:#174f8d}
+#glass-diagnostics .diagnostic-tint-label{display:flex;justify-content:space-between;font-size:9px;color:#435b75}
+#glass-diagnostics input[type=range]{display:block;width:100%;height:18px;margin:3px 0 6px;accent-color:#3b74b2}
+#glass-diagnostics .diagnostic-options{display:flex;flex-wrap:wrap;gap:5px 15px;font-size:10px;align-items:center}
+#glass-diagnostics .diagnostic-options label{display:flex;align-items:center;gap:5px}
+#glass-diagnostics input[type=checkbox]{margin:0}
+#glass-diagnostics .diagnostic-status{font-size:9px;color:#536a80;line-height:1.5;margin:8px 0 0}
+#glass-diagnostics .diagnostic-reopen{font-size:10px;color:#1e5e9f;text-decoration:underline;padding:0}
+.glass-diagnostic-grid{pointer-events:none}
+@media(max-width:1050px){#glass-diagnostics{left:12px;bottom:12px;width:min(480px,calc(100vw - 24px))}}
+@media(prefers-reduced-transparency:reduce),(forced-colors:active){
+  html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined]{background:#f6f9ff;border-color:#9cacc0}
+  .live-glass-edge{display:none!important}
+}
+@media(forced-colors:active){#glass-diagnostics{background:Canvas;color:CanvasText;border-color:CanvasText}#glass-diagnostics button{background:ButtonFace;color:ButtonText}.preview-context{color:CanvasText}html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-meta,html[data-map-prototype=live][data-theme=glass] .marker-preview[data-glass-material=refined] .preview-summary{color:CanvasText}}

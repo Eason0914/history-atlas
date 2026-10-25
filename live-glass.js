@@ -53,7 +53,7 @@
 
   class LiveGlassPane {
     constructor(element,name){
-      this.element=element;this.size='';
+      this.element=element;this.size='';this.material='current';this.tintAmount=.28;this.failed=false;
       this.filter=svg('filter',{id:`atlas-live-${name}`,filterUnits:'userSpaceOnUse',primitiveUnits:'userSpaceOnUse','color-interpolation-filters':'sRGB'});
       this.heightMap=svg('feImage',{preserveAspectRatio:'none',result:'lens-normal'});
       this.filter.append(this.heightMap,svg('feDisplacementMap',{in:'SourceGraphic',in2:'lens-normal',scale:'20',xChannelSelector:'R',yChannelSelector:'G'}));defs.append(this.filter);
@@ -70,20 +70,54 @@
       element.style.setProperty('--live-lens-filter',`url("#atlas-live-${name}")`);
       this.observer=new ResizeObserver(()=>{this.resize();schedule();});this.observer.observe(element);
     }
+    setMaterial(material){
+      const next=material==='refined'&&window.ATLAS_GLASS_MATERIAL?'refined':'current';
+      this.element.dataset.glassMaterial=next;
+      if(next===this.material)return;
+      this.material=next;this.size='';this.failed=false;
+      this.filter.replaceChildren();
+      if(next==='current'){
+        this.heightMap=svg('feImage',{preserveAspectRatio:'none',result:'lens-normal'});
+        this.filter.append(this.heightMap,svg('feDisplacementMap',{in:'SourceGraphic',in2:'lens-normal',scale:'20',xChannelSelector:'R',yChannelSelector:'G'}));
+        if(this.edge)this.edge.hidden=true;
+      }else{
+        this.diffusionMap=svg('feImage',{preserveAspectRatio:'none',result:'diffusion-mask'});
+        this.blur=svg('feGaussianBlur',{in:'SourceGraphic',stdDeviation:'1.1',result:'diffused'});
+        this.heightMap=svg('feImage',{preserveAspectRatio:'none',result:'lens-normal'});
+        const calibrated=svg('feComponentTransfer',{in:'lens-normal',result:'calibrated-normal'});
+        calibrated.append(svg('feFuncR',{type:'linear',slope:1,intercept:-1/510}),svg('feFuncG',{type:'linear',slope:1,intercept:-1/510}));
+        const merge=svg('feMerge',{result:'readable-source'});merge.append(svg('feMergeNode',{in:'clear-edge'}),svg('feMergeNode',{in:'soft-center'}));
+        this.filter.append(this.blur,this.diffusionMap,svg('feComposite',{in:'diffused',in2:'diffusion-mask',operator:'in',result:'soft-center'}),svg('feComposite',{in:'SourceGraphic',in2:'diffusion-mask',operator:'out',result:'clear-edge'}),merge,this.heightMap,calibrated,svg('feDisplacementMap',{in:'readable-source',in2:'calibrated-normal',scale:'20',xChannelSelector:'R',yChannelSelector:'G'}));
+        if(!this.edge){this.edge=document.createElement('span');this.edge.className='live-glass-edge';this.edge.setAttribute('aria-hidden','true');this.edge.setAttribute('inert','');this.element.prepend(this.edge);}
+        this.edge.hidden=false;
+      }
+      this.setTint(this.tintAmount);this.resize();
+    }
+    setTint(amount){
+      this.tintAmount=Math.max(0,Math.min(1,amount));
+      this.element.style.setProperty('--glass-tint-alpha',(.07+this.tintAmount*.71).toFixed(3));
+      if(this.blur)this.blur.setAttribute('stdDeviation',(.55+this.tintAmount*1.8).toFixed(2));
+    }
     setActive(active){
       this.element.classList.toggle('live-glass',active);
       this.element.dataset.glassActive=String(active);
-      this.element.dataset.glassRenderer=transparency.matches||contrast.matches?'opaque':nativeBackdrop?'native-backdrop':'svg-map';
+      this.element.dataset.glassRenderer=transparency.matches||contrast.matches||this.failed?'opaque':nativeBackdrop?'native-backdrop':'svg-map';
       if(active)this.resize();
     }
     resize(){
-      if(this.element.hidden||this.element.dataset.glassActive!=='true')return;
-      const r=this.element.getBoundingClientRect(),width=Math.round(r.width),height=Math.round(r.height);
-      const key=`${width}x${height}`;if(width<1||height<1||key===this.size)return;this.size=key;
-      const uri=lensMap(width,height,parseFloat(getComputedStyle(this.element).borderRadius)||24);
-      if(!uri){this.element.dataset.glassRenderer='opaque';return;}
+      if(this.element.hidden||this.element.dataset.glassActive!=='true'||transparency.matches||contrast.matches)return;
+      const r=this.element.getBoundingClientRect(),width=this.material==='refined'?this.element.clientWidth:Math.round(r.width),height=this.material==='refined'?this.element.clientHeight:Math.round(r.height);
+      const key=`${this.material}:${width}x${height}`;if(width<1||height<1||key===this.size)return;this.size=key;
+      const radius=(parseFloat(getComputedStyle(this.element).borderRadius)||24)-(this.material==='refined'?1:0);
+      const textures=this.material==='refined'?window.ATLAS_GLASS_MATERIAL.generate(width,height,radius):null;
+      const uri=this.material==='refined'?textures?.normal:lensMap(width,height,radius);
+      if(!uri){this.failed=true;this.element.dataset.glassRenderer='opaque';return;}
       for(const [name,value] of Object.entries({x:-12,y:-12,width:width+24,height:height+24}))this.filter.setAttribute(name,value);
       for(const [name,value] of Object.entries({x:0,y:0,width,height,href:uri}))this.heightMap.setAttribute(name,value);
+      if(textures){
+        for(const [name,value] of Object.entries({x:0,y:0,width,height,href:textures.diffusion}))this.diffusionMap.setAttribute(name,value);
+        this.edge.style.backgroundImage=`url("${textures.light}")`;
+      }
       this.fallbackSVG.setAttribute('viewBox',`0 0 ${width} ${height}`);
     }
     syncMap(){
@@ -98,11 +132,15 @@
 
   const card=document.createElement('section');card.id='marker-preview';card.className='marker-preview';card.hidden=true;
   card.setAttribute('role','dialog');card.setAttribute('aria-labelledby','preview-title');
-  card.innerHTML='<p class="preview-meta"></p><h2 id="preview-title"></h2><p class="preview-dates"></p><p class="preview-summary"></p><button class="preview-expand" type="button">Expand study notes <span aria-hidden="true">↗</span></button><button class="preview-close" type="button" aria-label="Dismiss location preview">×</button>';
+  card.innerHTML='<p class="preview-meta"></p><h2 id="preview-title"></h2><p class="preview-dates"></p><p class="preview-summary"></p><p class="preview-context"></p><button class="preview-expand" type="button">Expand study notes <span aria-hidden="true">↗</span></button><button class="preview-close" type="button" aria-label="Dismiss location preview">×</button>';
   wrap.append(card);
   let pendingFrame=0,preview=null,lastPointer=null,dragged=false;
   const headerPane=new LiveGlassPane(document.querySelector('.site-header'),'navigation');
   const cardPane=new LiveGlassPane(card,'preview');
+  let comparisonMaterial=params.get('material')==='current'?'current':'refined',diagnosticPinned=false;
+  let savedTint=.28;
+  try{const value=localStorage.getItem('classroom-atlas-glass-tint');if(value!==null&&Number.isFinite(Number(value)))savedTint=Math.max(0,Math.min(1,Number(value)));}catch(_){}
+  cardPane.setTint(savedTint);
   const enabled=()=>root.dataset.theme==='glass';
   const setAttribute=(element,name,value)=>{if(element.getAttribute(name)!==String(value))element.setAttribute(name,value);};
   function visibleBounds(){
@@ -137,15 +175,26 @@
   }
   function closePreview(restoreFocus=false){
     if(!preview)return;
-    const marker=preview.marker;marker.classList.remove('previewing');marker.removeAttribute('aria-expanded');marker.removeAttribute('aria-controls');
+    const marker=preview.marker;marker.classList.remove('previewing','preview-pending');marker.removeAttribute('aria-expanded');marker.removeAttribute('aria-controls');
     preview=null;card.hidden=true;
+    delete root.dataset.previewEntry;
+    document.dispatchEvent(new CustomEvent('atlas:preview-closed'));
     if(restoreFocus&&marker.style.display!=='none')marker.focus({preventScroll:true});
+  }
+  function syncPreviewState(){
+    if(!preview)return;
+    const committed=document.querySelector('.marker.selected')?.dataset.entry;
+    const lesson=window.ATLAS_DATA.entries.find(e=>e.id===committed),pending=committed!==preview.id;
+    card.dataset.previewPending=String(pending);
+    if(preview.marker.classList.contains('preview-pending')!==pending)preview.marker.classList.toggle('preview-pending',pending);
+    const context=pending?`Study panel: ${lesson?.name||'no lesson selected'}`:'This lesson is open in the study panel.';
+    if(card.querySelector('.preview-context').textContent!==context)card.querySelector('.preview-context').textContent=context;
   }
   function positionPreview(){
     if(!preview)return;
     const core=preview.marker.querySelector('.marker-core'),r=core.getBoundingClientRect(),b=visibleBounds(),base=wrap.getBoundingClientRect();
     const x=r.left+r.width/2,y=r.top+r.height/2;
-    if(preview.marker.style.display==='none'||x<b.left||x>b.right||y<b.top||y>b.bottom){closePreview();return;}
+    if(preview.marker.style.display==='none'||(!diagnosticPinned&&(x<b.left||x>b.right||y<b.top||y>b.bottom))){closePreview();return;}
     card.style.width=`${Math.max(190,Math.min(280,b.right-b.left))}px`;
     const width=card.offsetWidth,height=card.offsetHeight,gap=19;
     const choices=[{x:x+gap,y:y-height-10},{x:x+gap,y:y+gap},{x:x-width-gap,y:y-height-10},{x:x-width-gap,y:y+gap}];
@@ -154,30 +203,38 @@
       const overlapsControls=p.x<controls.right+8&&p.x+width>controls.left-8&&p.y<controls.bottom+8&&p.y+height>controls.top-8;
       return Math.max(0,b.left-p.x)+Math.max(0,p.x+width-b.right)+Math.max(0,b.top-p.y)+Math.max(0,p.y+height-b.bottom)+(overlapsControls?100:0);
     };
-    choices.sort((a,c)=>score(a)-score(c));const point=choices[0];
+    let best=0;choices.forEach((candidate,index)=>{if(score(candidate)<score(choices[best]))best=index;});
+    if(preview.placement!==undefined&&score(choices[preview.placement])<=score(choices[best])+24)best=preview.placement;
+    preview.placement=best;
+    const point=diagnosticPinned&&preview.pinned?preview.pinned:choices[best];
     const maxTop=Math.min(b.bottom-height,innerHeight-height-12);
     const minTop=Math.min(b.top,Math.max(document.querySelector('.site-header').getBoundingClientRect().bottom+8,maxTop));
     const left=Math.max(b.left,Math.min(point.x,b.right-width)),top=Math.max(minTop,Math.min(point.y,maxTop));
-    card.style.left=`${Math.round(left-base.left)}px`;card.style.top=`${Math.round(top-base.top)}px`;
+    card.style.left=`${left-base.left}px`;card.style.top=`${top-base.top}px`;
+    if(diagnosticPinned)preview.pinned={x:left,y:top};
   }
   function openPreview(id,input){
     const entry=window.ATLAS_DATA.entries.find(e=>e.id===id),marker=document.querySelector(`.marker[data-entry="${id}"]`);
     if(!entry||!marker)return;
     closePreview();preview={id,marker};
-    card.querySelector('.preview-meta').textContent=entry.region;
+    card.querySelector('.preview-meta').textContent=`Preview · ${entry.region}`;
     card.querySelector('#preview-title').textContent=entry.name;
     card.querySelector('.preview-dates').textContent=entry.dates;
     card.querySelector('.preview-summary').textContent=entry.summary;
+    card.dataset.entry=id;root.dataset.previewEntry=id;syncPreviewState();
+    cardPane.setMaterial(id==='qing'?comparisonMaterial:'current');
     marker.classList.add('previewing');marker.setAttribute('aria-expanded','true');marker.setAttribute('aria-controls',card.id);
     card.hidden=false;cardPane.setActive(true);positionPreview();cardPane.syncMap();
     if(input==='keyboard'&&!card.hidden)card.querySelector('.preview-expand').focus({preventScroll:true});
+    document.dispatchEvent(new CustomEvent('atlas:preview-opened',{detail:{id,material:cardPane.material,tint:cardPane.tintAmount}}));
   }
   function update(){
     pendingFrame=0;
-    root.dataset.atlasView=explore.hidden?(document.getElementById('view-practice').hidden?'library':'practice'):'explore';
+    const view=explore.hidden?(document.getElementById('view-practice').hidden?'library':'practice'):'explore';
+    if(root.dataset.atlasView!==view)root.dataset.atlasView=view;
     if(!enabled()||explore.hidden)closePreview();
     headerPane.setActive(enabled()&&!explore.hidden);cardPane.setActive(enabled());
-    layoutMap();positionPreview();headerPane.syncMap();cardPane.syncMap();
+    layoutMap();syncPreviewState();positionPreview();headerPane.syncMap();cardPane.syncMap();
     for(const marker of document.querySelectorAll('.marker')){
       if(enabled())setAttribute(marker,'aria-haspopup','dialog');else marker.removeAttribute('aria-haspopup');
     }
@@ -185,6 +242,19 @@
   function schedule(){if(!pendingFrame)pendingFrame=requestAnimationFrame(update);}
   document.addEventListener('atlas:marker-activate',event=>{if(!enabled())return;event.preventDefault();openPreview(event.detail.id,event.detail.input);});
   document.addEventListener('atlas:entry-selected',()=>closePreview());
+  document.addEventListener('atlas:preview-request',event=>{if(enabled())openPreview(event.detail?.id,'pointer');});
+  document.addEventListener('atlas:glass-settings',event=>{
+    const settings=event.detail||{};
+    if(settings.material){comparisonMaterial=settings.material==='current'?'current':'refined';if(preview?.id==='qing')cardPane.setMaterial(comparisonMaterial);}
+    if(Number.isFinite(settings.tint)){cardPane.setTint(settings.tint);try{localStorage.setItem('classroom-atlas-glass-tint',String(cardPane.tintAmount));}catch(_){}}
+    if(typeof settings.pinned==='boolean'){diagnosticPinned=settings.pinned;card.dataset.pinned=String(diagnosticPinned);if(preview)delete preview.pinned;}
+    schedule();
+  });
+  let lightFrame=0,lightPointer=null;
+  card.addEventListener('pointermove',event=>{
+    if(motion.matches||cardPane.material!=='refined')return;lightPointer={x:event.clientX,y:event.clientY};if(lightFrame)return;
+    lightFrame=requestAnimationFrame(()=>{lightFrame=0;const r=card.getBoundingClientRect();card.style.setProperty('--glass-light-x',`${(lightPointer.x-r.left)/r.width*100}%`);card.style.setProperty('--glass-light-y',`${Math.max(0,Math.min(40,(lightPointer.y-r.top)/r.height*40))}%`);});
+  },{passive:true});
   card.querySelector('.preview-expand').addEventListener('click',()=>{
     if(!preview)return;const id=preview.id;closePreview();
     document.dispatchEvent(new CustomEvent('atlas:open-entry',{detail:{id}}));
@@ -195,7 +265,7 @@
   document.addEventListener('pointerdown',event=>{lastPointer={x:event.clientX,y:event.clientY};dragged=false;},{passive:true});
   document.addEventListener('pointermove',event=>{if(lastPointer&&Math.hypot(event.clientX-lastPointer.x,event.clientY-lastPointer.y)>5)dragged=true;},{passive:true});
   document.addEventListener('click',event=>{
-    if(!preview||card.contains(event.target)||event.target.closest('.marker,.map-controls'))return;
+    if(!preview||card.contains(event.target)||event.target.closest('.marker,.map-controls,#glass-diagnostics'))return;
     if(event.target.closest('#world-map')&&dragged)return;
     closePreview();
   });
