@@ -1,0 +1,15 @@
+/* Keep the established columns; expose only the reading pane's left edge. */
+.explore-view{position:relative}
+.study-resize-handle{display:none}
+@media(min-width:1051px){
+  .study-resize-handle{display:block;position:absolute;z-index:9;width:14px;padding:0;cursor:col-resize;touch-action:none;user-select:none;-webkit-user-select:none;color:var(--muted);border-radius:7px}
+  .study-resize-handle::before{content:"";position:absolute;left:6px;top:26px;bottom:26px;width:2px;border-radius:2px;background:currentColor;opacity:0;transition:opacity .15s}
+  .study-resize-handle::after{content:"";position:absolute;left:5px;top:calc(50% - 17px);width:4px;height:34px;border-radius:4px;background:currentColor;opacity:.28;transition:opacity .15s}
+  .study-resize-handle:hover::before,.study-resize-handle:focus-visible::before,body.study-resizing .study-resize-handle::before{opacity:.24}
+  .study-resize-handle:hover::after,.study-resize-handle:focus-visible::after,body.study-resizing .study-resize-handle::after{opacity:.75}
+  .study-resize-handle:focus-visible{outline:none}
+  .study-resize-handle:focus-visible::after{outline:2px solid var(--accent);outline-offset:3px}
+}
+body.study-resizing,body.study-resizing *{cursor:col-resize!important;user-select:none!important;-webkit-user-select:none!important}
+@media(prefers-reduced-motion:reduce){.study-resize-handle::before,.study-resize-handle::after{transition:none}}
+@media(forced-colors:active){.study-resize-handle{color:CanvasText}}

@@ -204,6 +204,7 @@
     wrap.style.setProperty('--live-controls-bottom',`${r.bottom-b.bottom+6}px`);
     wrap.style.setProperty('--live-help-bottom',`${r.bottom-b.bottom+8}px`);
     wrap.style.setProperty('--live-help-right',`${r.right-b.right+58}px`);
+    wrap.style.setProperty('--live-north-right',`${r.right-b.right+6}px`);
     const stage=document.querySelector('.atlas-stage').getBoundingClientRect(),region=explore.getBoundingClientRect();
     explore.style.setProperty('--live-footer-left',`${stage.left-region.left+4}px`);
     explore.style.setProperty('--live-footer-right',`${region.right-stage.right+4}px`);
@@ -300,7 +301,7 @@
   document.addEventListener('pointerdown',event=>{lastPointer={x:event.clientX,y:event.clientY};dragged=false;},{passive:true});
   document.addEventListener('pointermove',event=>{if(lastPointer&&Math.hypot(event.clientX-lastPointer.x,event.clientY-lastPointer.y)>5)dragged=true;},{passive:true});
   document.addEventListener('click',event=>{
-    if(!preview||card.contains(event.target)||event.target.closest('.marker,.map-controls,#glass-diagnostics'))return;
+    if(!preview||card.contains(event.target)||event.target.closest('.marker,.map-controls,.study-resize-handle,#glass-diagnostics'))return;
     if(event.target.closest('#world-map')&&dragged)return;
     closePreview();
   });
@@ -308,6 +309,7 @@
   new MutationObserver(schedule).observe(root,{attributes:true,attributeFilter:['data-theme']});
   new MutationObserver(schedule).observe(explore,{attributes:true,attributeFilter:['hidden']});
   new ResizeObserver(schedule).observe(wrap);
+  new ResizeObserver(schedule).observe(studyPanel);
   window.addEventListener('resize',schedule,{passive:true});window.addEventListener('scroll',schedule,{passive:true,capture:true});
   for(const preference of [desktop,motion,transparency,contrast])preference.addEventListener('change',schedule);
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)schedule();});

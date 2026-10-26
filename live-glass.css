@@ -57,7 +57,7 @@ html[data-map-prototype=live][data-theme=glass] .marker-preview .live-glass-tint
   html[data-map-prototype=live][data-theme=glass][data-atlas-view=explore] .map-footer{position:absolute;top:calc(100% - 16px);left:var(--live-footer-left,279px);right:var(--live-footer-right,429px);padding:0;color:#59716f}
   html[data-map-prototype=live][data-theme=glass][data-atlas-view=explore] .map-controls{right:var(--live-controls-right,410px);bottom:var(--live-controls-bottom,180px);z-index:8}
   html[data-map-prototype=live][data-theme=glass][data-atlas-view=explore] .map-help{left:calc(235px + 40px);right:var(--live-help-right,480px);bottom:var(--live-help-bottom,180px)}
-  html[data-map-prototype=live][data-theme=glass][data-atlas-view=explore] .map-north{right:calc(385px + 45px);top:175px}
+  html[data-map-prototype=live][data-theme=glass][data-atlas-view=explore] .map-north{right:var(--live-north-right,430px);top:175px}
 }
 @media(max-width:1050px){
   html[data-map-prototype=live][data-theme=glass] .site-header.live-glass{position:sticky;top:8px;z-index:20}

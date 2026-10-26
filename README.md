@@ -80,6 +80,8 @@ Both editions retain the original browser storage key and original entry IDs, so
 
 ## Project files
 
+On desktop, drag the left edge of the study panel to adjust reading width. The browser remembers the width across topics and reloads. Double-click the edge to restore the responsive default. A focused edge also supports Left/Right arrows (Shift for larger steps), Home to reset, and End for the maximum. Width is bounded to leave room for the map; stacked tablet/mobile layouts retain their existing sizing. `study-resize.js` and `study-resize.css` provide this behavior in both editions.
+
 `index.html` is the shared page template. After editing it, run `python tools/generate_editions.py` to regenerate `classic.html` and `glass.html`. `theme.js` switches editions without resetting study state. `styles.css` retains the original design, `unit3.css` contains shared course additions, and `glass.css` contains scoped glass styles. `ocean-glass.js` and `ocean-glass.css` retain the button optics and restore the static Classic ocean. Deck IDs `d8`, `d9`, and `d10` identify the new Unit 3 sources.
 
 
