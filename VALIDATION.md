@@ -45,6 +45,10 @@ All 48 locations were opened and checked for B · Refined, the Tinted 100% setti
 
 Twenty-six focused browser checks passed for the comparison card's bottom alignment with both side panels at 1100/1480/2048px, footer placement, horizontal centers of all three zoom glyphs, real pointer panning without text selection, restoration of reading selection after release and interrupted gestures, actual wheel zoom anchored under the pointer, reverse wheel input and scale limits, independent reading-panel scrolling, line/page wheel units, preserved Ctrl+wheel behavior, refined previews and Expand, 720/390/320px layouts, and absence of runtime exceptions. Desktop layout and zoom-control captures were inspected. All 43 existing content, source, image, draft, quiz and edition checks passed again.
 
+## Touch map gestures and expanded zoom range
+
+The map camera now supports one-finger/mouse pan plus two-finger pan and pinch zoom. The pinch midpoint remains the zoom anchor, and the shared range is 1×–8×. Seven captured touch checks passed on a 390px emulated touchscreen: two-finger engagement, two-finger translation, clean release, pinch opening, clean pinch release, mobile viewport bounds, and no page gesture takeover. The existing 26 desktop map/gesture checks and 43 content/edition checks passed with the new 8× limit. Physical touch hardware and Safari/Firefox were not tested.
+
 ## Refined study-panel actions
 
 Nineteen focused browser checks passed for the right-panel actions: refined material/tint, absence of old photo layers, sharp labels, source chips, active tabs, actual quiz launch, relabeled Show/Hide buttons, known/review/save states, filter cleanup through repeated rerenders, retained drafts, Classic switching, reduced transparency, a non-map neutral fallback, 390/320px bounds, idle rendering and no runtime exceptions. Yuan MCQ captures were inspected, including the primary and review actions. The shared renderer uses a smaller 2.5px maximum displacement for these compact controls. Removed controls disconnect their resize observers and remove their SVG filters. All 43 existing study/edition checks passed again.

@@ -90,17 +90,68 @@
     });
     if(state.selected) $('markers').append(markerEls.get(state.selected).g);
   }
+  const MAX_ZOOM=8;
   const zoom={k:1,x:0,y:0};
-  const applyZoom = () => { $('map-world').setAttribute('transform',`translate(${zoom.x} ${zoom.y}) scale(${zoom.k})`); updateMarkers(); $('zoom-in').disabled=zoom.k>=4;$('zoom-out').disabled=zoom.k<=1; };
-  const zoomBy = (factor,anchor={x:550,y:305}) => {const old=zoom.k;zoom.k=Math.min(4,Math.max(1,old*factor));if(zoom.k===old)return;const ratio=zoom.k/old;zoom.x=anchor.x-(anchor.x-zoom.x)*ratio;zoom.y=anchor.y-(anchor.y-zoom.y)*ratio;if(zoom.k===1)zoom.x=zoom.y=0;applyZoom();};
+  const applyZoom = () => { $('map-world').setAttribute('transform',`translate(${zoom.x} ${zoom.y}) scale(${zoom.k})`); updateMarkers(); $('zoom-in').disabled=zoom.k>=MAX_ZOOM;$('zoom-out').disabled=zoom.k<=1; };
+  const zoomBy = (factor,anchor={x:550,y:305}) => {const old=zoom.k;zoom.k=Math.min(MAX_ZOOM,Math.max(1,old*factor));if(zoom.k===old)return;const ratio=zoom.k/old;zoom.x=anchor.x-(anchor.x-zoom.x)*ratio;zoom.y=anchor.y-(anchor.y-zoom.y)*ratio;if(zoom.k===1)zoom.x=zoom.y=0;applyZoom();};
   $('zoom-in').addEventListener('click',()=>zoomBy(1.35));$('zoom-out').addEventListener('click',()=>zoomBy(1/1.35));$('zoom-reset').addEventListener('click',()=>{zoom.k=1;zoom.x=zoom.y=0;applyZoom();});
   let drag=null,dragMoved=false;
-  const mapPoint=event=>{const p=$('world-map').createSVGPoint();p.x=event.clientX;p.y=event.clientY;return p.matrixTransform($('world-map').getScreenCTM().inverse());};
-  $('world-map').addEventListener('pointerdown',event=>{if(drag || event.button!==0 || event.target.closest('.marker'))return;event.preventDefault();const p=mapPoint(event);drag={id:event.pointerId,x:p.x,y:p.y,zx:zoom.x,zy:zoom.y};dragMoved=false;$('world-map').setPointerCapture(event.pointerId);$('world-map').classList.add('dragging');document.body.classList.add('map-panning');});
-  $('world-map').addEventListener('pointermove',event=>{if(!drag || event.pointerId!==drag.id)return;const p=mapPoint(event);const dx=p.x-drag.x,dy=p.y-drag.y;if(Math.abs(dx)+Math.abs(dy)>5){if(!dragMoved)window.getSelection()?.removeAllRanges();dragMoved=true;}zoom.x=Math.max(-1100*zoom.k+100,Math.min(1000,drag.zx+dx));zoom.y=Math.max(-610*zoom.k+100,Math.min(510,drag.zy+dy));applyZoom();});
-  const endDrag=event=>{if(!drag || (event?.pointerId!==undefined && event.pointerId!==drag.id))return;drag=null;$('world-map').classList.remove('dragging');document.body.classList.remove('map-panning');setTimeout(()=>{dragMoved=false;},0);};
-  $('world-map').addEventListener('pointerup',endDrag);$('world-map').addEventListener('pointercancel',endDrag);$('world-map').addEventListener('lostpointercapture',endDrag);window.addEventListener('blur',endDrag);
-  document.addEventListener('selectstart',event=>{if(drag)event.preventDefault();});
+  const pointers=new Map();
+  let pinch=null;
+  const mapPoint=event=>{const p=$('world-map').createSVGPoint();p.x=event.clientX??event.x;p.y=event.clientY??event.y;return p.matrixTransform($('world-map').getScreenCTM().inverse());};
+  const clampPan=(x,y)=>({x:Math.max(-1100*zoom.k+100,Math.min(1000,x)),y:Math.max(-610*zoom.k+100,Math.min(510,y))});
+  const midpoint=(a,b)=>({x:(a.x+b.x)/2,y:(a.y+b.y)/2});
+  const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+  const markMoved=()=>{if(!dragMoved)window.getSelection()?.removeAllRanges();dragMoved=true;};
+  const beginPinch=()=>{
+    const points=[...pointers.values()];if(points.length<2)return;
+    const a=points[0],b=points[1],mid=midpoint(a,b),base=mapPoint(mid);
+    pinch={ids:[points[0].id,points[1].id],distance:Math.max(1,distance(a,b)),baseMid:base,k:zoom.k,x:zoom.x,y:zoom.y};
+    drag=null;markMoved();
+  };
+  const updatePinch=()=>{
+    if(!pinch)return;
+    const a=pointers.get(pinch.ids[0]),b=pointers.get(pinch.ids[1]);if(!a||!b)return;
+    const mid=midpoint(a,b),base=mapPoint(mid),nextK=Math.min(MAX_ZOOM,Math.max(1,pinch.k*distance(a,b)/pinch.distance));
+    zoom.k=nextK;
+    const geographicX=(pinch.baseMid.x-pinch.x)/pinch.k,geographicY=(pinch.baseMid.y-pinch.y)/pinch.k;
+    const next=clampPan(base.x-geographicX*nextK,base.y-geographicY*nextK);
+    zoom.x=next.x;zoom.y=next.y;applyZoom();
+  };
+  const resumeSinglePointer=()=>{
+    pinch=null;
+    const point=[...pointers.values()][0];
+    if(point){const p=mapPoint(point);drag={id:point.id,x:p.x,y:p.y,zx:zoom.x,zy:zoom.y};}
+  };
+  const endGesture=()=>{
+    drag=null;pinch=null;pointers.clear();$('world-map').classList.remove('dragging');document.body.classList.remove('map-panning');setTimeout(()=>{dragMoved=false;},0);
+  };
+  $('world-map').addEventListener('pointerdown',event=>{
+    if(event.pointerType==='mouse'&&event.button!==0 || event.target.closest('.marker'))return;
+    event.preventDefault();
+    const point={id:event.pointerId,x:event.clientX,y:event.clientY};pointers.set(event.pointerId,point);
+    $('world-map').setPointerCapture(event.pointerId);$('world-map').classList.add('dragging');document.body.classList.add('map-panning');
+    if(pointers.size===1){const p=mapPoint(event);drag={id:event.pointerId,x:p.x,y:p.y,zx:zoom.x,zy:zoom.y};dragMoved=false;}
+    else if(pointers.size===2)beginPinch();
+  });
+  $('world-map').addEventListener('pointermove',event=>{
+    const point=pointers.get(event.pointerId);if(!point)return;
+    point.x=event.clientX;point.y=event.clientY;
+    if(pinch){event.preventDefault();updatePinch();return;}
+    if(!drag||event.pointerId!==drag.id)return;
+    const p=mapPoint(event),dx=p.x-drag.x,dy=p.y-drag.y;if(Math.abs(dx)+Math.abs(dy)>5)markMoved();
+    const next=clampPan(drag.zx+dx,drag.zy+dy);zoom.x=next.x;zoom.y=next.y;applyZoom();
+  });
+  const releasePointer=event=>{
+    if(!pointers.has(event.pointerId))return;
+    pointers.delete(event.pointerId);
+    if(pinch){if(pointers.size===1)resumeSinglePointer();else if(!pointers.size)endGesture();return;}
+    if(drag?.id===event.pointerId){if(pointers.size)resumeSinglePointer();else endGesture();}
+  };
+  $('world-map').addEventListener('pointerup',releasePointer);$('world-map').addEventListener('pointercancel',releasePointer);$('world-map').addEventListener('lostpointercapture',releasePointer);
+  const cancelGestures=()=>{if(pointers.size)endGesture();};
+  window.addEventListener('blur',cancelGestures);window.addEventListener('pointercancel',cancelGestures);
+  document.addEventListener('selectstart',event=>{if(drag||pinch)event.preventDefault();});
   $('world-map').addEventListener('wheel',event=>{
     if(event.ctrlKey || event.metaKey || drag || !event.deltaY)return;
     event.preventDefault();

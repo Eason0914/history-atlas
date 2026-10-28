@@ -14,13 +14,13 @@
   <link rel="stylesheet" href="ocean-glass.css?v=classic-ocean">
   <link rel="stylesheet" href="live-glass.css?v=study-resize-1">
   <link rel="stylesheet" href="glass-material.css?v=optics-3">
-  <link rel="stylesheet" href="map-interactions.css?v=map-gestures-1">
+  <link rel="stylesheet" href="map-interactions.css?v=map-gestures-2">
   <link rel="stylesheet" href="study-controls.css?v=study-controls-1">
   <link rel="stylesheet" href="study-resize.css?v=study-resize-1">
   <script src="land.js" defer></script>
   <script src="sources.js" defer></script>
   <script src="data.js" defer></script>
-  <script src="app.js?v=map-gestures-1" defer></script>
+  <script src="app.js?v=map-gestures-2" defer></script>
   <script src="ocean-glass.js?v=classic-ocean" defer></script>
   <script src="glass-material.js?v=study-controls-1" defer></script>
   <script src="live-glass.js?v=study-resize-1" defer></script>
@@ -75,7 +75,7 @@
               <image id="ocean-fallback-photo" x="-40" y="-24" width="1180" height="658" preserveAspectRatio="xMidYMid slice" filter="url(#ocean-photo-refraction)"/>
             </svg>
           </div>
-          <svg id="world-map" viewBox="0 0 1100 610" role="group" aria-label="Interactive world study map. Select a marker, or use the location list. Drag to pan; use the mouse wheel or zoom buttons to zoom.">
+            <svg id="world-map" viewBox="0 0 1100 610" role="group" aria-label="Interactive world study map. Select a marker, or use the location list. Drag or use two fingers to pan; use the mouse wheel, pinch, or zoom buttons to zoom.">
             <defs><pattern id="ocean-dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.65" fill="#bfcbc6" opacity=".42"/></pattern></defs>
             <rect width="1100" height="610" fill="url(#ocean-dots)"/>
             <g id="map-world"><g id="graticule" aria-hidden="true"></g><g id="land" aria-hidden="true"></g><g id="map-labels" aria-hidden="true"></g><g id="markers"></g></g>
