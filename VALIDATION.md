@@ -49,6 +49,8 @@ Twenty-six focused browser checks passed for the comparison card's bottom alignm
 
 The map camera now supports one-finger/mouse pan plus two-finger pan and pinch zoom. The pinch midpoint remains the zoom anchor, and the shared range is 1×–8×. Seven captured touch checks passed on a 390px emulated touchscreen: two-finger engagement, two-finger translation, clean release, pinch opening, clean pinch release, mobile viewport bounds, and no page gesture takeover. The existing 26 desktop map/gesture checks and 43 content/edition checks passed with the new 8× limit. Physical touch hardware and Safari/Firefox were not tested.
 
+The follow-up touch guard applies `touch-action: none` to the map surface and actively cancels touch, pointer, and browser gesture defaults, including single-finger movement. This prevents pinch or swipe input from reaching browser page zoom, back/forward, and shortcut handling while the user is interacting with the map.
+
 ## Refined study-panel actions
 
 Nineteen focused browser checks passed for the right-panel actions: refined material/tint, absence of old photo layers, sharp labels, source chips, active tabs, actual quiz launch, relabeled Show/Hide buttons, known/review/save states, filter cleanup through repeated rerenders, retained drafts, Classic switching, reduced transparency, a non-map neutral fallback, 390/320px bounds, idle rendering and no runtime exceptions. Yuan MCQ captures were inspected, including the primary and review actions. The shared renderer uses a smaller 2.5px maximum displacement for these compact controls. Removed controls disconnect their resize observers and remove their SVG filters. All 43 existing study/edition checks passed again.

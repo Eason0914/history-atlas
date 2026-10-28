@@ -127,8 +127,8 @@
     drag=null;pinch=null;pointers.clear();$('world-map').classList.remove('dragging');document.body.classList.remove('map-panning');setTimeout(()=>{dragMoved=false;},0);
   };
   $('world-map').addEventListener('pointerdown',event=>{
-    if(event.pointerType==='mouse'&&event.button!==0 || event.target.closest('.marker'))return;
     event.preventDefault();
+    if(event.pointerType==='mouse'&&event.button!==0 || event.target.closest('.marker'))return;
     const point={id:event.pointerId,x:event.clientX,y:event.clientY};pointers.set(event.pointerId,point);
     $('world-map').setPointerCapture(event.pointerId);$('world-map').classList.add('dragging');document.body.classList.add('map-panning');
     if(pointers.size===1){const p=mapPoint(event);drag={id:event.pointerId,x:p.x,y:p.y,zx:zoom.x,zy:zoom.y};dragMoved=false;}
@@ -136,6 +136,7 @@
   });
   $('world-map').addEventListener('pointermove',event=>{
     const point=pointers.get(event.pointerId);if(!point)return;
+    event.preventDefault();
     point.x=event.clientX;point.y=event.clientY;
     if(pinch){event.preventDefault();updatePinch();return;}
     if(!drag||event.pointerId!==drag.id)return;
@@ -149,6 +150,8 @@
     if(drag?.id===event.pointerId){if(pointers.size)resumeSinglePointer();else endGesture();}
   };
   $('world-map').addEventListener('pointerup',releasePointer);$('world-map').addEventListener('pointercancel',releasePointer);$('world-map').addEventListener('lostpointercapture',releasePointer);
+  const preventBrowserGesture=event=>event.preventDefault();
+  ['gesturestart','gesturechange','gestureend','touchmove'].forEach(type=>$('map-wrap').addEventListener(type,preventBrowserGesture,{passive:false}));
   const cancelGestures=()=>{if(pointers.size)endGesture();};
   window.addEventListener('blur',cancelGestures);window.addEventListener('pointercancel',cancelGestures);
   document.addEventListener('selectstart',event=>{if(drag||pinch)event.preventDefault();});
